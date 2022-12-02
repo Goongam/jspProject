@@ -9,8 +9,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/module.css"> 
 <link rel="stylesheet" type="text/css" href="css/Question.css"> 
+
+
 </head>
 
 <%

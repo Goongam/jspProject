@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-
+a{
+	text-decoration: none;
+}
     .qlist_top{
         background-color: var(--qlist-top-background-color);
         color: black;
@@ -51,13 +53,14 @@
         clear: both;
     }
     .question_item_sub_category a{
-        color: black;
+
+        color: rgb(105,115,179);
+	    background-color: rgb(225,236,244);
+	    box-shadow: 0.05rem 0.1rem 0.2rem -0.02rem rgb(0 0 0 / 45%);
+	    padding: 4px 5px 4px 5px;
     }
     .question_item_sub_category a:hover{
         color: rgb(37, 126, 242);
-    }
-    .question_item_sub_category a::after{
-        content: "　";
     }
     .question_item_sub_ul{
         margin-top: 10px;

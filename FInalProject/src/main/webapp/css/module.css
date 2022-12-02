@@ -152,6 +152,7 @@
         color: rgb(105,115,179);
         background-color: rgb(225,236,244) ;
         box-shadow: 0.05rem 0.1rem 0.2rem -0.02rem rgba(0, 0, 0, 0.45);
+        padding: 4px 5px 4px 5px;
     }
     
     
@@ -215,7 +216,7 @@
     }
     #today_q_inner_text{
 	    position: absolute;
-		bottom: 140px;
+		bottom: 30px;
 		left: 17px;
 		color: white;
 		font-weight: bold;

@@ -1,5 +1,14 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.dm.common.CategoryDTO"%>
+<%@page import="com.dm.common.CategoryDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	CategoryDAO cateDAO = new CategoryDAO();
+	ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
+
+%>
+
 <div class="warp_right">
                 <div id="question_btn" class="border">
                     <a href="<%=request.getContextPath()%>/newQuestion.jsp">
@@ -14,12 +23,13 @@
                 </div>
 
                 <div class="categorys">
-                    <div><a href="#category1">#카테고리1</a></div>
-                    <div><a href="#category1">#카테고리2</a></div>
-                    <div><a href="#category1">#카테고리3</a></div>
-                    <div><a href="#category1">#카테고리4</a></div>
-                    <div><a href="#category1">#카테고리5</a></div>
-                    <div><a href="#category1">#카테고리6</a></div>
+                    <%
+                    
+	                    for(CategoryDTO a : catelist){
+	                		out.println("<div><a href='"+a.getCategory_name()+"'>"+a.getCategory_name()+"</a></div>");
+	                	}
+                    %>
+                    
                 </div>
                 
                	<a href="#" id="today_q_warp">

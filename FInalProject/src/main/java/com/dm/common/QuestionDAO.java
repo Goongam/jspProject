@@ -12,7 +12,7 @@ import com.dm.common.JDBCutil;
 import com.mysql.cj.protocol.Resultset;
 
 public class QuestionDAO {
-	final String QUESTION_INSERT = "insert into questions(title,content,member_id,anonymous,category_id,views,edit_time)"
+	final String QUESTION_INSERT = "insert into questions(title,content,member_id,anonymous,category,views,edit_time)"
 							+ "values(?,?,?,?,?,0, now());";
 	
 	final String QUESTION_SELECT = "select * from questions where id = ?";
@@ -28,7 +28,7 @@ public class QuestionDAO {
 			stmt.setString(2, question.getQuestion_contnet());
 			stmt.setString(3, question.getMemeber_id());
 			stmt.setBoolean(4, question.getAnonymous());
-			stmt.setInt(5, question.getcategory_id());
+			stmt.setString(5, question.getcategory());
 			stmt.executeUpdate();
 			
 			stmt = conn.prepareStatement("select last_insert_id();");
@@ -57,7 +57,7 @@ public class QuestionDAO {
 				dto.setQuestion_contnet(rs.getString("content"));
 				dto.setMemeber_id(rs.getString("member_id"));
 				dto.setAnonymous(rs.getBoolean("anonymous"));
-				dto.setcategory_id(rs.getInt("category_id"));
+				dto.setcategory(rs.getString("category"));
 				dto.setViews(rs.getInt("views"));
 				dto.setEdit_time(rs.getTimestamp("edit_time"));
 			}else { //글 없음
@@ -90,7 +90,7 @@ public class QuestionDAO {
 				dto.setQuestion_contnet(rs.getString("content"));
 				dto.setMemeber_id(rs.getString("member_id"));
 				dto.setAnonymous(rs.getBoolean("anonymous"));
-				dto.setcategory_id(rs.getInt("category_id"));
+				dto.setcategory(rs.getString("category"));
 				dto.setViews(rs.getInt("views"));
 				dto.setEdit_time(rs.getTimestamp("edit_time"));
 				
@@ -125,7 +125,7 @@ public class QuestionDAO {
 				dto.setQuestion_contnet(rs.getString("content"));
 				dto.setMemeber_id(rs.getString("member_id"));
 				dto.setAnonymous(rs.getBoolean("anonymous"));
-				dto.setcategory_id(rs.getInt("category_id"));
+				dto.setcategory(rs.getString("category"));
 				dto.setViews(rs.getInt("views"));
 				dto.setEdit_time(rs.getTimestamp("edit_time"));
 				

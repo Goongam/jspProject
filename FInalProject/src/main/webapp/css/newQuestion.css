@@ -17,3 +17,7 @@
 	border-bottom: 1px solid black;
 	display: none;
 }
+
+#category_select{
+	margin-bottom: 10px;
+}

@@ -14,8 +14,10 @@
     <title>Document</title>
 </head>
 
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/index1.css"> 
 <link rel="stylesheet" type="text/css" href="css/module.css"> 
+
 
 <%
 	Paging page_data = (Paging) session.getAttribute("page_data");
@@ -47,7 +49,9 @@
 	                    <h3 class="question_item_title"><a href="Question.do?qustionid=<%= q.getQuestion_id()%>"><%= q.getQuestion_title().replaceAll("<[^>]*>", " ") %></a></h3>
 	                    <div class="question_item_content"><%=q.getQuestion_contnet().replaceAll("<[^>]*>", " ") %></div>
 	                    <div class="question_item_sub">
-	                        <div class="question_item_sub_category">#JAVA</div>
+	                        <div class="question_item_sub_category">
+	                        	<a href="#"><%=q.getcategory()%></a>
+	                        </div>
 	                        <ul class="question_item_sub_ul">
 	                            <li><%= timediff.getTimeDiff(q.getEdit_time()) %></li>
 	                            <li>답변 1</li>

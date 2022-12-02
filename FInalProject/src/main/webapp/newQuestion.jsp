@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.dm.common.CategoryDAO"%>
+<%@page import="com.dm.common.CategoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,6 +20,13 @@
 <link rel="stylesheet" type="text/css" href="./css/module.css"> 
 <link rel="stylesheet" type="text/css" href="./css/newQuestion.css"> 
 
+<%
+
+	CategoryDAO cateDAO = new CategoryDAO();
+	ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
+
+%>
+
 </head>
 <body>
 
@@ -26,10 +36,18 @@
 			<div class="content">
 			
 				<div class="new_question_box">
-					<form method="post" action="InsertQuestion.do">
+					<form method="post" action="InsertQuestion.do" id="newQuestionForm">
 						<input type="text" id="title" name="titledata">
+						<select name="select_category" id="category_select">
+						    <option value="">카테고리 선택</option>
+						    <%
+						    	for(CategoryDTO category : catelist){
+						    		out.print("<option value='"+category.getCategory_name()+"'>"+category.getCategory_name()+"</option>");
+						    	}
+						    %>
+						</select>
 	  					<textarea id="summernote" name="editordata"></textarea>
-	  					<input type="submit">
+	  					<input type="submit" id="submitBTN">
 					</form>
 				</div>
 			</div>
@@ -128,11 +146,30 @@ async function upload(url, editor){
 }
 
 
+var f = document.getElementById("newQuestionForm");
+f.addEventListener("submit" , function(e) {
 
-function waitTime(){
-    return new Promise((resolve)=>setTimeout(() => {
-        resolve();
-    }, 3000));
-}
+  if(f.title.value == '' ) {
+    alert("제목을 입력하세요");
+    e.preventDefault();
+    f.title.focus();
+    return;
+  }
+  if(f.select_category.value == '' ) {
+    alert("카테고리를 선택 하세요");
+    e.preventDefault();
+    f.select_category.focus();
+    return;
+  }
+  if(f.editordata.value == '' ) {
+    alert("내용을 입력하세요");
+    e.preventDefault();
+    f.editordata.focus();
+    return;
+  }
+  
+  
+  
+});
 
 </script>

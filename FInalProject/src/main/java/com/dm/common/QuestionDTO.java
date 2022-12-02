@@ -8,7 +8,7 @@ public class QuestionDTO {
  	private String question_contnet;
  	private String memeber_id;
  	private boolean anonymous;
- 	private int category_id;
+ 	private String category;
  	private int views;	
  	private Timestamp edit_time;
  	
@@ -56,11 +56,11 @@ public class QuestionDTO {
 	public void setAnonymous(boolean anonymous) {
 		this.anonymous = anonymous;
 	}
-	public int getcategory_id() {
-		return category_id;
+	public String getcategory() {
+		return category;
 	}
-	public void setcategory_id(int category) {
-		this.category_id = category;
+	public void setcategory(String category) {
+		this.category = category;
 	}
 	
 	/*

@@ -32,7 +32,7 @@ public class InsertQuestionController extends HttpServlet {
 		questionDTO.setQuestion_contnet(request.getParameter("editordata"));
 		questionDTO.setMemeber_id(null);
 		questionDTO.setAnonymous(false);
-		questionDTO.setcategory_id(1);
+		questionDTO.setcategory(request.getParameter("select_category"));
 		
 		int qustion_id = 0;
 		QuestionDAO questionDAO = new QuestionDAO();
@@ -43,8 +43,6 @@ public class InsertQuestionController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//뭔가코드를씀
-		//뭔가코드를씀2
 		
 		//질문id값으로 질문보기화면으로 이동
 		response.sendRedirect("Question.do?qustionid="+qustion_id);
