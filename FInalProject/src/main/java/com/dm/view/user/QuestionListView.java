@@ -31,7 +31,7 @@ public class QuestionListView extends HttpServlet {
 		paging.setCurrent_page(current_page);
 		
 		
-		int list_num = 5;
+		int list_num = 10;
 		if(request.getParameter("list_num") != null)
 			list_num = Integer.parseInt(request.getParameter("list_num"));
 		paging.setList_num(list_num);

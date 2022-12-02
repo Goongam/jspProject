@@ -46,8 +46,10 @@ public class UploadSummernoteImageFile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fileRoot = this.getClass().getResource("").getPath();
-		fileRoot = fileRoot.substring(1,fileRoot.indexOf(".metadata"))+"FinalProject/src/main/webapp/uploadImgs/";
+		fileRoot = fileRoot.substring(1, fileRoot.indexOf("WEB-INF"))+"uploadImgs/";
 
+
+		System.out.println(fileRoot);
 		MultipartRequest multi = new MultipartRequest(request, fileRoot, 5 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
 
 
@@ -66,14 +68,14 @@ public class UploadSummernoteImageFile extends HttpServlet {
 		json.put("url", request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImgs/"+savedFileName);
 		json.put("responseCode", "succcess");
 
-
-
+//
+//
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		out.print(json);
 		out.flush();
 		
-//		System.out.println(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImgs/"+savedFileName);
+		System.out.println(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImgs/"+savedFileName);
 	}
 
 }
