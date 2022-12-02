@@ -43,6 +43,8 @@ public class InsertQuestionController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		//뭔가코드를씀
+		
 		//질문id값으로 질문보기화면으로 이동
 		response.sendRedirect("Question.do?qustionid="+qustion_id);
 	}
