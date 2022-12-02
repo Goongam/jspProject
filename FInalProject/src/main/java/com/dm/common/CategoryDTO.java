@@ -7,6 +7,9 @@ public class CategoryDTO {
 	public String getCategory_name() {
 		return category_name;
 	}
+	public String getCategory_name_url() {
+		return category_name.replace("&","%26").replace("+","%2B").replace("#","%23");
+	}
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}

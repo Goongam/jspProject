@@ -163,6 +163,131 @@ public class QuestionDAO {
 
 		return count;
 	}
+	
+	
+	final String QUESTION_LIST_CATEGORY_SEARCH = "select * from questions where category = ? and (title like ? or content like ?) order by edit_time desc limit ?, ?;";
+	public ArrayList<QuestionDTO> selectSearchQuestionList(int start, int limit, String category, String keyword) throws SQLException{
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(QUESTION_LIST_CATEGORY_SEARCH);
+			stmt.setString(1, category);
+			stmt.setString(2, "%"+keyword+"%");
+			stmt.setString(3, "%"+keyword+"%");
+			stmt.setInt(4, start);
+			stmt.setInt(5, limit);
+			
+			rs = stmt.executeQuery();
+			
+			alist = new ArrayList<QuestionDTO>();
+			while(rs.next()) {
+				//id, title, content, member_id, anonymous, category_id, views, edit_time
+				QuestionDTO dto = new QuestionDTO();
+				dto.setQuestion_id(rs.getInt("id"));
+				dto.setQuestion_title(rs.getString("title"));
+				dto.setQuestion_contnet(rs.getString("content"));
+				dto.setMemeber_id(rs.getString("member_id"));
+				dto.setAnonymous(rs.getBoolean("anonymous"));
+				dto.setcategory(rs.getString("category"));
+				dto.setViews(rs.getInt("views"));
+				dto.setEdit_time(rs.getTimestamp("edit_time"));
+				
+				
+				alist.add(dto);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+		
+		return alist;
+	}
+	
+	final String QUESTION_LIST_SEARCH = "select * from questions where title like ? or content like ? order by edit_time desc limit ?, ?;";
+	public ArrayList<QuestionDTO> selectSearchQuestionList(int start, int limit, String keyword) throws SQLException{
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(QUESTION_LIST_SEARCH);
+			stmt.setString(1, "%"+keyword+"%");
+			stmt.setString(2, "%"+keyword+"%");
+			stmt.setInt(3, start);
+			stmt.setInt(4, limit);
+			
+			rs = stmt.executeQuery();
+			
+			alist = new ArrayList<QuestionDTO>();
+			while(rs.next()) {
+				//id, title, content, member_id, anonymous, category_id, views, edit_time
+				QuestionDTO dto = new QuestionDTO();
+				dto.setQuestion_id(rs.getInt("id"));
+				dto.setQuestion_title(rs.getString("title"));
+				dto.setQuestion_contnet(rs.getString("content"));
+				dto.setMemeber_id(rs.getString("member_id"));
+				dto.setAnonymous(rs.getBoolean("anonymous"));
+				dto.setcategory(rs.getString("category"));
+				dto.setViews(rs.getInt("views"));
+				dto.setEdit_time(rs.getTimestamp("edit_time"));
+				
+				
+				alist.add(dto);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+		
+		return alist;
+	}
+	
+	final String QUESTION_COUNT_CATEGORY_SEARCH = "select count(*) from questions where category = ? and (title like ? or content like ?)";
+	public int selectQuestionCount(String category, String keyword) throws SQLException{
+		int count = 0;
+		
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(QUESTION_COUNT_CATEGORY_SEARCH);
+			stmt.setString(1, category);
+			stmt.setString(2, "%"+keyword+"%");
+			stmt.setString(3, "%"+keyword+"%");
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+
+		return count;
+	}
+	final String QUESTION_COUNT_SEARCH = "select count(*) from questions where title like ? or content like ?";
+	public int selectQuestionCount(String keyword) throws SQLException{
+		int count = 0;
+		
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(QUESTION_COUNT_SEARCH);
+			stmt.setString(1, "%"+keyword+"%");
+			stmt.setString(2, "%"+keyword+"%");
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+
+		return count;
+	}
+	
 //	public ArrayList<QuestionDTO> selectMemberList() throws SQLException{
 //		try{
 //		 	conn = JDBCutil.getConnection();

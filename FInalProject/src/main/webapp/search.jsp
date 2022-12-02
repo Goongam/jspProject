@@ -23,6 +23,8 @@
 <%
 	Paging page_data = (Paging) session.getAttribute("page_data");
 	ArrayList<QuestionDTO> qlist = (ArrayList<QuestionDTO>) session.getAttribute("qlist");
+	String category = (String) session.getAttribute("category");
+	String search = (String) session.getAttribute("search");
 	TimeDiff timediff = new TimeDiff();
 
 	//dsadasdasdasdadasdasdasdsadasdad
@@ -31,6 +33,10 @@
 	int last_page = page_data.getLast_page();
 	int list_num = page_data.getList_num();
 	int total_page = page_data.getTotal_page();
+	
+	category = category != null ? ("&category="+category) : "";
+	search = search != null ? ("&search="+search) : "";
+
 %>
 
 <body>
@@ -74,7 +80,8 @@
                         	if(start_page != 1) {
                         		%>
                     			<a 
-                    				href=<%=request.getContextPath()+"/index.do?"+"p="+(start_page-1)+"&list_num="+list_num%>
+                    				href=<%=request.getContextPath()+"/Search.do?"+"p="+(start_page-1)+"&list_num="+list_num+category
+	                    				+search%>
                     				class="icon prev"
                     			>이전</a>
                     			<%
@@ -87,7 +94,8 @@
       
                         		%>
                         			<a 
-                        				href=<%=request.getContextPath()+"/index.do?"+"p="+i+"&list_num="+list_num%>
+                        				href=<%=request.getContextPath()+"/Search.do?"+"p="+i+"&list_num="+list_num+category
+	                    				+search%>
                         				class="<%= isCurrent %>"
                         			><%=i %></a>
                         		<%
@@ -96,7 +104,14 @@
                         	if(last_page != total_page) {
                         		%>
                     			<a 
-                    				href=<%=request.getContextPath()+"/index.do?"+"p="+(last_page+1)+"&list_num="+list_num%>
+                    				href=<%=
+	                    				request.getContextPath()
+	                    				+"/Search.do?"
+	                    				+"p="+(last_page+1)
+	                    				+"&list_num="+list_num
+	                    				+category
+	                    				+search
+                    				%>
                     				class="icon next"
                     			>다음</a>
                     			<%

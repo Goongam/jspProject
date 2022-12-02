@@ -1,3 +1,4 @@
+<%@page import="com.dm.common.StringUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.dm.common.CategoryDTO"%>
 <%@page import="com.dm.common.CategoryDAO"%>
@@ -7,6 +8,7 @@
 	CategoryDAO cateDAO = new CategoryDAO();
 	ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
 
+	
 %>
 
 <div class="warp_right">
@@ -26,7 +28,7 @@
                     <%
                     
 	                    for(CategoryDTO a : catelist){
-	                		out.println("<div><a href='"+a.getCategory_name()+"'>"+a.getCategory_name()+"</a></div>");
+	                		out.println("<div><a href='Search.do?category="+StringUtil.getURLEscapeCode(a.getCategory_name())+"'>"+a.getCategory_name()+"</a></div>");
 	                	}
                     %>
                     
