@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+
+    .qlist_top{
+        background-color: var(--qlist-top-background-color);
+        color: black;
+        /* border-bottom: 1px solid black; */
+        font-size: 35px;
+        font-weight: bold;
+        padding: 10px;
+
+        border-radius: 0.5rem;
+        box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);
+    }
+
+/* 질문 아이템 */
+    .question_item{
+        margin: 0px 10px;
+        border-bottom: 1px solid gray;
+        padding: 10px;
+    }
+    .question_item:first-child{
+        border-top: 1px solid gray;
+    }
+    .question_item_title{
+        width: 400px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
+    }
+    .question_item_title > a{
+        color: hsl(206,100%,40%);
+        /* hsl(206,100%,40%); */
+        
+    }
+    .question_item_content{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .question_item_sub{
+        display: flex;
+        margin-top: 10px;
+    }
+    .question_item_sub::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .question_item_sub_category a{
+        color: black;
+    }
+    .question_item_sub_category a:hover{
+        color: rgb(37, 126, 242);
+    }
+    .question_item_sub_category a::after{
+        content: "　";
+    }
+    .question_item_sub_ul{
+        margin-top: 10px;
+        text-align: center;
+        padding: 0px;
+        height: 10px;
+        margin: 0; /*ul 기본마진삭제*/
+        margin-left: auto;
+        /* overflow: hidden; */
+        float: right;
+    }
+
+    .question_item_sub_ul li{
+        float: right;
+        list-style-type: none;
+        padding: 0px 8px;
+    }
+
+    .question_item_sub_ul li::after{
+        content: "|";
+        float: right;
+        color: #ccc;
+        margin-right: -7px;
+    }
+    .question_item_sub_ul li:first-child::after{
+        content: "";
+
+    }
+
+
+    .paging_box{
+        text-align: center;
+        margin: 20px 0;
+
+    }
+    .paging_box a{
+        color: black;
+        font-weight: bold;
+        
+        margin-left: 10px
+        
+    }
+
+	.paging_box .current_page{
+		text-decoration: underline;
+		color: red;
+	}
+	.paging_warp{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.icon{
+		background-image: url(https://nstatic.dcinside.com/dc/w/images/sp/sp_pagingicon.png?1);
+	    background-repeat: no-repeat;
+	    height: 14px;
+    	width: 15px;
+    	display: inline-block;
+    	font-size: 0px;
+    }
+
+    .prev{
+    	background-position: left top;
+    }
+    .next{
+    	background-position: right center;
+    }
+    
+
+	a{
+		color: transparent;
+	}
