@@ -19,6 +19,7 @@
 <%
 
 	QuestionDTO question = (QuestionDTO)session.getAttribute("questionData");
+	ArrayList<AnswerDTO> answers = (ArrayList<AnswerDTO>)session.getAttribute("answerData");
 	TimeDiff timediff = new TimeDiff();
 
 %>
@@ -32,7 +33,7 @@
 			<div class="content">
 				<div class="question">
 					<div class="question_inner">
-						<div class="question_info">
+						<div class="question_member_info">
 							<img class="profile_img" src="imgs/todayQ.png">
 							<span><%= question.getMemeber_id() %></span>
 							<span><%= timediff.getTimeDiff(question.getEdit_time()) %></span>
@@ -42,7 +43,31 @@
 						<div class="question_content"> <%= question.getQuestion_contnet() %> </div>
 					</div>
 				</div>
-
+				<div class="answer_count">답변 <%=answers.size() %>개</div>
+				<div class="answer">
+					<%
+						for(AnswerDTO answer : answers){
+							%>
+							<div class="answer_inner">
+								<div class="answer_info_warp">
+									<div class="question_member_info">
+										<img class="profile_img" src="imgs/todayQ.png">
+										<span><%= answer.getMember_id() %></span>
+										<span><%= timediff.getTimeDiff(answer.getEdit_time()) %></span>
+			                        </div>
+			                        <div class="answer_vote">
+			                        	<button onclick="voteUp(<%=answer.getId()%>)">&#128077;</button>
+			                        	<span class="vote_<%=answer.getId()%>"><%=answer.getVote() %></span>
+			                        	<button onclick="voteDown(<%=answer.getId()%>)">&#128078;</button>
+			                        </div>
+								</div>
+								<div><h1 class="answer_title"> <%= answer.getTitle() %> </h1></div>
+								<div class="answer_content"> <%= answer.getContent() %> </div>
+							</div>
+							<%
+						}
+					%>
+				</div>
 	
 			</div>
 			<jsp:include page="module/rightwarp.jsp"></jsp:include>
@@ -54,4 +79,16 @@
 	
 	<jsp:include page="module/footer.jsp"></jsp:include>
 </body>
+<script>
+	async function voteUp(id){
+		const {voteCount} = await fetch("AnswerVote.do?AnswerId="+id+"&isUp="+1).then(async (res)=>await res.json());
+		document.querySelector(".vote_"+id).innerText = voteCount;
+
+	}
+	async function voteDown(id){
+		const {voteCount} = await fetch("AnswerVote.do?AnswerId="+id+"&isUp="+0).then(async (res)=>await res.json());
+		document.querySelector(".vote_"+id).innerText = voteCount;
+
+	}
+</script>
 </html>

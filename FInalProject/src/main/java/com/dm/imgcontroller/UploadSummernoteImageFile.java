@@ -75,7 +75,7 @@ public class UploadSummernoteImageFile extends HttpServlet {
 		out.print(json);
 		out.flush();
 		
-		System.out.println(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImgs/"+savedFileName);
+		//System.out.println(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImgs/"+savedFileName);
 	}
 
 }

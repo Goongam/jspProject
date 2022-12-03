@@ -53,6 +53,7 @@ public class QuestionDAO {
 			stmt = conn.prepareStatement("select * from questions where id = "+questionid);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
+				dto.setQuestion_id(rs.getInt("id"));
 				dto.setQuestion_title(rs.getString("title"));
 				dto.setQuestion_contnet(rs.getString("content"));
 				dto.setMemeber_id(rs.getString("member_id"));
