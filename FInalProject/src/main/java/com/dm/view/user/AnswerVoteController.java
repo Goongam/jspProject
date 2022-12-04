@@ -3,6 +3,7 @@ package com.dm.view.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.dm.common.AnswerDAO;
+import com.dm.common.VoteDAO;
 
 
 @WebServlet("/AnswerVote.do")
@@ -23,20 +25,20 @@ public class AnswerVoteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = (String)request.getParameter("AnswerId");
 		String isUp = (String)request.getParameter("isUp");
-		
-		AnswerDAO adao = new AnswerDAO();
+		String memberId = (String)request.getParameter("memberId");
+
+		VoteDAO vdao = new VoteDAO();
 		try {
-			int voteCount = adao.updateVote(id, isUp);
+			JSONObject voteResult = vdao.insertVote(id, isUp, memberId);
 			
-			
-			JSONObject data = new JSONObject();
-			data.put("voteCount", voteCount);
+//			if(voteResult.get(""))
+//			data.put("voteCount", voteCount);
 
 
 			response.setContentType("application/json");
 			response.setHeader("Access-Control-Allow-Origin", "*");
 			PrintWriter out = response.getWriter();
-			out.print(data);
+			out.print(voteResult);
 			out.flush();
 			
 		} catch (SQLException e) {

@@ -28,6 +28,10 @@
 
 	QuestionDTO question = (QuestionDTO)session.getAttribute("questionData");
 	ArrayList<AnswerDTO> answers = (ArrayList<AnswerDTO>)session.getAttribute("answerData");
+	VoteDAO vdao = new VoteDAO();
+	
+	
+	String memberid = (String)session.getAttribute("idValue");
 	TimeDiff timediff = new TimeDiff();
 
 %>
@@ -64,9 +68,9 @@
 										<span><%= timediff.getTimeDiff(answer.getEdit_time().getTime()) %></span>
 			                        </div>
 			                        <div class="answer_vote">
-			                        	<button onclick="voteUp(<%=answer.getId()%>)">&#128077;</button>
-			                        	<span class="vote_<%=answer.getId()%>"><%=answer.getVote() %></span>
-			                        	<button onclick="voteDown(<%=answer.getId()%>)">&#128078;</button>
+			                        	<button onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'UP')" class="vote_btn vote_btn_left">&#128077;</button>
+			                        	<span class="vote_count vote_<%=answer.getId()%>"><%=vdao.selectVote(answer.getId()+"") %></span>
+			                        	<button onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'DOWN')" class="vote_btn vote_btn_right">&#128078;</button>
 			                        </div>
 								</div>
 								<div><h1 class="answer_title"> <%= answer.getTitle() %> </h1></div>
@@ -97,16 +101,20 @@
 	<jsp:include page="module/footer.jsp"></jsp:include>
 </body>
 <script>
-	async function voteUp(id){
-		const {voteCount} = await fetch("AnswerVote.do?AnswerId="+id+"&isUp="+1).then(async (res)=>await res.json());
-		document.querySelector(".vote_"+id).innerText = voteCount;
+	async function vote(id, memberid, isUp){
+		if(memberid === null || memberid === "null") {
+			alert("로그인 후 이용해주세요 / 로그인 창으로 이동");
+			return;
+		}
+		const {result, voteCount} = await fetch("AnswerVote.do?AnswerId="+id+"&memberId="+memberid+"&isUp="+isUp).then(async (res)=>await res.json()).catch(e => {console.log("데이터 입력 실패")});
+		console.log(result);
+		if(result === "already_vote") alert("이미 입력하였습니다");
+		else if(result === "success")
+			document.querySelector(".vote_"+id).innerText = voteCount;
+		else console.log("서버오류");
 
 	}
-	async function voteDown(id){
-		const {voteCount} = await fetch("AnswerVote.do?AnswerId="+id+"&isUp="+0).then(async (res)=>await res.json());
-		document.querySelector(".vote_"+id).innerText = voteCount;
 
-	}
 	
 	$(document).ready(function() {
 		//여기 아래 부분

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class AnswerDAO {
 
 	final String ANSWER_SELECT = "select * from answers where question_id = ? order by vote desc, edit_time desc;";
+
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;

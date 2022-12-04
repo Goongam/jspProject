@@ -46,8 +46,26 @@
 	justify-content: space-between;
 }
 .answer_vote{
-	
+	display: flex;
 }
+.vote_count{
+	display: inline-block; 
+	border: 1px solid #d3d3d3;
+    padding: 10px 10px;
+    font-size: 14px;
+}
+.vote_btn{
+	background-color: transparent;
+}
+.vote_btn_left{
+	 border: 1px solid #d3d3d3;
+     border-radius: 5px 0px 0px 5px;
+}
+.vote_btn_right{
+	border: 1px solid #d3d3d3;
+    border-radius: 0 5px 5px 0;
+}
+
  .question_member_info{
  	height: 30px;
  	display: flex;
