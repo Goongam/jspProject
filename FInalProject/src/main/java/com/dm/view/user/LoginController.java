@@ -46,6 +46,7 @@ public class LoginController extends HttpServlet {
 					session.setAttribute("checked","checked");
 				else 
 					session.removeAttribute("checked");
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.do");
 				dispatcher.forward(request, response);
 				}

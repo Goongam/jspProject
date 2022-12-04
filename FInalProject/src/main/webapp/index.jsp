@@ -29,7 +29,7 @@
 	
 	TimeDiff timediff = new TimeDiff();
 
-	//dsadasdasdasdadasdasdasdsadasdad
+
 	int current_page = page_data.getCurrent_page();
 	int start_page = page_data.getStart_page();
 	int last_page = page_data.getLast_page();
