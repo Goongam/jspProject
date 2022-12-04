@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
     
     <%
-    String logincheck = (String)session.getAttribute("idValue");
+    String logincheck = (String)session.getAttribute("loginCkeck");
     %>
 <div class="top_gnb">
     <div class="top">

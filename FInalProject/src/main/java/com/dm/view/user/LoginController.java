@@ -40,12 +40,13 @@ public class LoginController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginrs", loginrs);
 			if(loginrs == 1) {
+				session.setAttribute("loginCkeck","ok");
 				session.setAttribute("idValue",id);
 				session.setAttribute("pwValue",pw);
 				if(ch != null) 
-					session.setAttribute("checked","checked");
+					session.setAttribute("Checked","Checked");
 				else 
-					session.removeAttribute("checked");
+					session.removeAttribute("Checked");
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.do");
 				dispatcher.forward(request, response);
@@ -55,7 +56,8 @@ public class LoginController extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 			else if(loginrs == -1){
-				System.out.println("아이디 비번 다다름");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp?loginfail=1");
+				dispatcher.forward(request, response);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -4,19 +4,26 @@
 <link rel="stylesheet" type="text/css" href="css/login3.css"> 
 <%
 
-String idValue = "";
-String pwValue = "";
-
-String checked = (String)session.getAttribute("checked");
-if(checked != null){
-	idValue = (String)session.getAttribute("idValue");
-	pwValue = (String)session.getAttribute("pwValue");
-}
+	String idValue = "";
+	String pwValue = "";
+	String checked = "";
+	
+	if(session.getAttribute("Checked") != null){
+		idValue = (String)session.getAttribute("idValue");
+		pwValue = (String)session.getAttribute("pwValue");
+		checked = (String)session.getAttribute("Checked");
+	}
+	
+	String isFail = request.getParameter("loginfail");
+	System.out.println(isFail);
 %>
 <body style="text-align:center;">
     <div class="login-wrapper" style="border-radius: 0.5rem;
         box-shadow: 0.2rem 0.30rem 0.2rem -0.12rem rgba(0, 0, 0, 0.45); margin: 200px auto;">
         <img src="imgs/banner.png"><h2>Login</h2>
+        <%
+        	if(isFail != null) out.print("아이디 비밀번호 다시 입력");
+        %>
         <form method="post" action="login.do" id="login-form">
             <input type="text" name="id" placeholder="ID" value=<%= idValue %>>
             <input type="password" name="password" placeholder="Password" value=<%= pwValue %>>

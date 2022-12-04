@@ -35,7 +35,7 @@ public class InsertAnswerController extends HttpServlet {
 		AnswerDTO answerDTO = new AnswerDTO();
 		answerDTO.setTitle(request.getParameter("titledata"));
 		answerDTO.setContent(request.getParameter("editordata"));
-		answerDTO.setMember_id(null);
+		answerDTO.setMember_id(request.getParameter("memberId"));
 		answerDTO.setAnonymous(false);
 		answerDTO.setQuestion_id(Integer.parseInt(request.getParameter("QuestionId")));
 		

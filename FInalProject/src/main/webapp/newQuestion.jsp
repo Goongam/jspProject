@@ -24,7 +24,7 @@
 
 	CategoryDAO cateDAO = new CategoryDAO();
 	ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
-
+	String memberid =(String) session.getAttribute("idValue");
 %>
 
 </head>
@@ -48,6 +48,7 @@
 						</select>
 	  					<textarea id="summernote" name="editordata"></textarea>
 	  					<input type="submit" id="submitBTN">
+	  					<input type="hidden" name="memberId" value="<%= memberid %>">
 					</form>
 				</div>
 			</div>

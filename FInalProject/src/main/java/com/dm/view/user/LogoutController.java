@@ -21,8 +21,7 @@ public class LogoutController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.removeAttribute("idValue");
-		session.removeAttribute("pwValue");
+		session.removeAttribute("loginCkeck");
 		response.sendRedirect("index.do");
 		
 	}

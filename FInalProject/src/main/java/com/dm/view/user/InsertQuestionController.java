@@ -30,7 +30,7 @@ public class InsertQuestionController extends HttpServlet {
 		QuestionDTO questionDTO = new QuestionDTO();
 		questionDTO.setQuestion_title(request.getParameter("titledata"));
 		questionDTO.setQuestion_contnet(request.getParameter("editordata"));
-		questionDTO.setMemeber_id(null);
+		questionDTO.setMemeber_id(request.getParameter("memberId"));
 		questionDTO.setAnonymous(false);
 		questionDTO.setcategory(request.getParameter("select_category"));
 		
