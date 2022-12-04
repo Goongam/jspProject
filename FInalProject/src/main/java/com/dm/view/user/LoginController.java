@@ -33,23 +33,19 @@ public class LoginController extends HttpServlet {
 		String pw = request.getParameter("password");
 		String ch = request.getParameter("infosave");
 		
-		System.out.println(ch);
+		System.out.println("pw:"+id);
 		
 		try {
 			int loginrs = rdao.login(id, pw);
 			HttpSession session = request.getSession();
 			session.setAttribute("loginrs", loginrs);
 			if(loginrs == 1) {
-				if(ch != null) {
+				session.setAttribute("idValue",id);
+				session.setAttribute("pwValue",pw);
+				if(ch != null) 
 					session.setAttribute("checked","checked");
-					session.setAttribute("idValue",id);
-					session.setAttribute("pwValue",pw);
-				}
-				else {
+				else 
 					session.removeAttribute("checked");
-					session.setAttribute("idValue","");
-					session.setAttribute("pwValue","");
-				}
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.do");
 				dispatcher.forward(request, response);
 				}

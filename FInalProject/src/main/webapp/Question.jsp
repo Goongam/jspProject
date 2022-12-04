@@ -88,6 +88,7 @@
 	  					<textarea id="summernote" name="editordata"></textarea>
 	  					<input type="submit" id="submitBTN">
 	  					<input name="QuestionId" value="<%=question.getQuestion_id() %>" type="hidden"></input>
+	  					<input type="hidden" name="memberId" value="<%= memberid %>">
 					</form>
 				</div>
 			</div>
@@ -106,6 +107,7 @@
 			alert("로그인 후 이용해주세요 / 로그인 창으로 이동");
 			return;
 		}
+		console.log(memberid);
 		const {result, voteCount} = await fetch("AnswerVote.do?AnswerId="+id+"&memberId="+memberid+"&isUp="+isUp).then(async (res)=>await res.json()).catch(e => {console.log("데이터 입력 실패")});
 		console.log(result);
 		if(result === "already_vote") alert("이미 입력하였습니다");
