@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.* , com.dm.common.*"%>
 
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,8 +29,52 @@
     	<input type="submit" value="회원 목록 보기">
     	<input type="submit" value="글 목록 보기">
     	<div>
+<jsp:useBean class="com.dm.common.RegisterDAO" id="regMgr2" scope="session" />    	
+<%
+ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vlist");
+%>
+<table width="75%" align="center" bgcolor="#FFFF99">
+<tr> 
+<td align="center" bgcolor="#FFFFCC">
+	<table width="95%" align="center" bgcolor="#FFFF99" border="1">
+	<tr bgcolor="#996600"> 
+	<td align="center"><font color="#FFFFFF">회원아이디</font></td>
+	<td align="center"><font color="#FFFFFF">회원이름</font></td>
+	<td align="center"><font color="#FFFFFF">패스워드</font></td>
+	</tr>
+	<%
+	for(int i=0; i<mlist.size(); i++){
+	RegisterDTO regBean = (RegisterDTO)mlist.get(i);
+	%>
+	<tr> 
+	<td align="center"><%=regBean.getMemberid()%></td>
+	<td align="center"><%=regBean.getName()%></td>
+	<td align="center"><%=regBean.getPassword()%></td>
+	<td align="center"><a href="">삭제하기</a></td>
+	</tr>
+	<%}%>
+	</table>
+</td>
+</tr>
+</table>
+
+
+
+<!-- 
+	ArrayList<RegisterDTO> vList = regMgr2.selectMemberList();
+	for(int i=0; i < vList.size(); i++){
+		RegisterDTO regBean = vList.get(i);
+		out.println(regBean.getMemberid() + ",");
+		out.println(regBean.getPassword() + ",");
+		out.println(regBean.getName() + ",");
+		out.println(regBean.getEmail() + "<br>");
+		System.out.println("jejeje");
+	}
+
+ -->
+
     	id 이름 비밀번호 
-    	id 글 제목 작성자 id 카테고리
+    	id 글 제목 작성자id 카테고리
     	
     	</div>
     </div>
