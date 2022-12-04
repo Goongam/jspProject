@@ -90,6 +90,9 @@ a{
 
     }
 
+	.answer_count{
+		font-weight: bold;'
+	}
 
     .paging_box{
         text-align: center;

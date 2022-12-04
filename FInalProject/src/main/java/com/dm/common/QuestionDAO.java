@@ -289,6 +289,23 @@ public class QuestionDAO {
 		return count;
 	}
 	
+	
+	public void UpdateQuestionViews(String questionid) throws SQLException{
+
+		try {
+			conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement("update questions set views = views+1 where id = ?;");
+			stmt.setString(1, questionid);
+			stmt.executeUpdate();
+		
+		} catch (Exception e) {
+			System.err.println(e);
+		}finally {
+			JDBCutil.close(stmt, conn);
+		}
+
+	}
+	
 //	public ArrayList<QuestionDTO> selectMemberList() throws SQLException{
 //		try{
 //		 	conn = JDBCutil.getConnection();

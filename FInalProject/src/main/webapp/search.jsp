@@ -21,6 +21,7 @@
 
 
 <%
+	request.setCharacterEncoding("utf-8");
 	Paging page_data = (Paging) session.getAttribute("page_data");
 	ArrayList<QuestionDTO> qlist = (ArrayList<QuestionDTO>) session.getAttribute("qlist");
 	String category = (String) session.getAttribute("category");
@@ -52,20 +53,14 @@
                 <%
 	                for(QuestionDTO q : qlist){
 	            %>
-	            	<div class="question_item">
-	                    <h3 class="question_item_title"><a href="Question.do?qustionid=<%= q.getQuestion_id()%>"><%= q.getQuestion_title().replaceAll("<[^>]*>", " ") %></a></h3>
-	                    <div class="question_item_content"><%=q.getQuestion_contnet().replaceAll("<[^>]*>", " ") %></div>
-	                    <div class="question_item_sub">
-	                        <div class="question_item_sub_category">
-	                        	<a href="Search.do?category=<%= StringUtil.getURLEscapeCode(q.getcategory()) %>"><%=q.getcategory()%></a>
-	                        </div>
-	                        <ul class="question_item_sub_ul">
-	                            <li><%= timediff.getTimeDiff(q.getEdit_time()) %></li>
-	                            <li>답변 1</li>
-	                            <li><%= q.getViews() %></li>            
-	                        </ul>
-	                    </div>
-                	</div>
+	            	<jsp:include page="module/question_item.jsp" flush="false">
+					      <jsp:param name="id" value="<%=q.getQuestion_id() %>" />
+					      <jsp:param name="title" value="<%=q.getQuestion_title() %>" />
+					      <jsp:param name="content" value="<%=q.getQuestion_contnet() %>" />
+					      <jsp:param name="category" value="<%=q.getcategory() %>" />
+					      <jsp:param name="Edit_time" value="<%=q.getEdit_time().getTime() %>" />
+					      <jsp:param name="views" value="<%=q.getViews() %>" />                  
+					</jsp:include>  
 	            
 	            
 	            <%

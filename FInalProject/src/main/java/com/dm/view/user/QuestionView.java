@@ -25,10 +25,15 @@ public class QuestionView extends HttpServlet {
 		try {
 			String question_id = request.getParameter("qustionid"); 
 			QuestionDAO questionDAO = new QuestionDAO();
-			QuestionDTO selectedDTO = questionDAO.selectQuestion(question_id);
-			
 			AnswerDAO answerDAO = new AnswerDAO();
-			ArrayList<AnswerDTO> answerList = answerDAO.selectAnswers(selectedDTO.getQuestion_id());
+			
+			questionDAO.UpdateQuestionViews(question_id); //조회수+1
+			
+			QuestionDTO selectedDTO = questionDAO.selectQuestion(question_id); //질문 내용 select
+
+			ArrayList<AnswerDTO> answerList = answerDAO.selectAnswers(selectedDTO.getQuestion_id()); //답변들 select
+			
+			
 			
 			if(question_id != null && selectedDTO != null) { 
 				HttpSession session = request.getSession();
