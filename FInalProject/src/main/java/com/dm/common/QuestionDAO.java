@@ -1,21 +1,18 @@
 package com.dm.common;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-
-import com.dm.common.JDBCutil;
-import com.mysql.cj.protocol.Resultset;
 
 public class QuestionDAO {
 	final String QUESTION_INSERT = "insert into questions(title,content,member_id,anonymous,category,views,edit_time)"
 							+ "values(?,?,?,?,?,0, now());";
 	
 	final String QUESTION_SELECT = "select * from questions where id = ?";
+	final String QUESTION_ALL_SELECT = "select * from questions;";
+	
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
@@ -304,6 +301,32 @@ public class QuestionDAO {
 			JDBCutil.close(stmt, conn);
 		}
 
+	}
+	
+	public ArrayList<QuestionDTO> selectPostList() throws SQLException{
+		ArrayList<QuestionDTO> aList = new ArrayList<QuestionDTO>();
+		try{
+			conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(QUESTION_ALL_SELECT); //3
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO rd = new QuestionDTO();
+				rd.setQuestion_id(Integer.parseInt(rs.getString("id")));
+				rd.setQuestion_title(rs.getString("title"));
+				rd.setMemeber_id(rs.getString("member_id"));
+				rd.setcategory(rs.getString("category"));
+				aList.add(rd);
+				
+				
+
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}finally{
+			JDBCutil.close(stmt, conn);
+		}
+		return aList;
 	}
 	
 //	public ArrayList<QuestionDTO> selectMemberList() throws SQLException{

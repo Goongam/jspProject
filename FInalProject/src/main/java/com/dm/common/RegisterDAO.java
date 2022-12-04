@@ -9,8 +9,9 @@ import java.util.ArrayList;
 public class RegisterDAO {
 
 	
-	final String USER_INSERT = "insert into membertbl values(?,?,?,?);";
-	final String USER_LIST = "select * from membertbl;";
+	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?);";
+	final String USER_LIST = "select * from members;";
+	final String Login = "select password from members where id=?;";
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -20,15 +21,17 @@ public class RegisterDAO {
 		try{
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(USER_INSERT); //3
-			pstmt.setString(1, mem.getMemberid());
-			pstmt.setString(2, mem.getPassword());
-			pstmt.setString(3, mem.getName());
-			pstmt.setString(4, mem.getEmail());
+			pstmt.setString(1, mem.getId());
+			pstmt.setString(2, mem.getNickname());
+			pstmt.setString(3, mem.getPassword());
+			pstmt.setBoolean(4, false);
+			pstmt.setInt(5, 0);
+			pstmt.setString(6, null);
 			pstmt.executeUpdate();
 		}catch(Exception e){
 			System.out.println(e);
 		}finally{
-			JDBCutil.close(rs, pstmt, conn);
+			JDBCutil.close(pstmt, conn);
 		}
 
 	}
@@ -43,11 +46,9 @@ public class RegisterDAO {
 			
 			while(rs.next()) {
 				RegisterDTO rd = new RegisterDTO();
-				rd.setMemberid(rs.getString("memberid"));
+				rd.setId(rs.getString("id"));
 				rd.setPassword(rs.getString("password"));
-				rd.setName(rs.getString("name"));
-				rd.setEmail(rs.getString("email"));
-				System.out.println(rd.getEmail());
+				rd.setNickname(rs.getString("nickname"));
 				aList.add(rd);
 				
 				
@@ -56,36 +57,34 @@ public class RegisterDAO {
 		}catch(Exception e){
 			System.out.println(e);
 		}finally{
-			JDBCutil.close(pstmt, conn);
+			JDBCutil.close(rs,pstmt, conn);
 		}
 		return aList;
 	}
 	
-	public ArrayList<RegisterDTO> selectList() throws SQLException{
-		ArrayList<RegisterDTO> aList = new ArrayList<RegisterDTO>();
-		try{
+	public int login(String id, String pw) throws SQLException{
+		try {
 			conn = JDBCutil.getConnection();
-			pstmt = conn.prepareStatement(USER_LIST); //3
-			rs = pstmt.executeQuery();
-			
-			
-			while(rs.next()) {
-				RegisterDTO rd = new RegisterDTO();
-				rd.setMemberid(rs.getString("memberid"));
-				rd.setPassword(rs.getString("password"));
-				rd.setName(rs.getString("name"));
-				rd.setEmail(rs.getString("email"));
-				System.out.println(rd.getEmail());
-				aList.add(rd);
-				
-				
-
-			}
+		    pstmt = conn.prepareStatement(Login);
+		    pstmt.setString(1, id);
+		    rs = pstmt.executeQuery();
+		    if(rs.next()) {
+			    if(rs.getString("password").equals(pw)) {
+			    	return 1;
+			    }
+			    else {
+			    	return 0;
+			    }
+		    }
 		}catch(Exception e){
-			System.out.println(e);
-		}finally{
-			JDBCutil.close(pstmt, conn);
+		    e.printStackTrace();
 		}
-		return aList;
+		finally {
+			
+			JDBCutil.close(rs,pstmt, conn);	
 	}
+		return -1;
+		
+		
+}
 }

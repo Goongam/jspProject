@@ -30,19 +30,21 @@ public class InsertController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String m = request.getParameter("memberid");
+		String i = request.getParameter("id");
+		String n = request.getParameter("nickname");
 		String p = request.getParameter("password");
-		RegisterDTO rt =new RegisterDTO();
-		rt.setMemberid(m);
-		rt.setPassword(p);
+		RegisterDTO rm = new RegisterDTO();
+		rm.setId(i);
+		rm.setNickname(n);
+		rm.setPassword(p);
 		RegisterDAO rd = new RegisterDAO();
 		try {
-			rd.insertMember(rt);
+			rd.insertMember(rm);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendRedirect("error.jsp");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("insertSuccess.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 		dispatcher.forward(request, response);
 	}
 

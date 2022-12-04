@@ -33,22 +33,22 @@
 <%
 ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vlist");
 %>
-<table width="75%" align="center" bgcolor="#FFFF99">
+<table width="75%" align="center" bgcolor="">
 <tr> 
-<td align="center" bgcolor="#FFFFCC">
-	<table width="95%" align="center" bgcolor="#FFFF99" border="1">
-	<tr bgcolor="#996600"> 
-	<td align="center"><font color="#FFFFFF">회원아이디</font></td>
-	<td align="center"><font color="#FFFFFF">회원이름</font></td>
-	<td align="center"><font color="#FFFFFF">패스워드</font></td>
+<td align="center" bgcolor="">
+	<table width="95%" align="center" bgcolor="" border="1">
+	<tr bgcolor=""> 
+	<td align="center"><font color="">회원아이디</font></td>
+	<td align="center"><font color="">회원이름</font></td>
+	<td align="center"><font color="">패스워드</font></td>
 	</tr>
 	<%
 	for(int i=0; i<mlist.size(); i++){
 	RegisterDTO regBean = (RegisterDTO)mlist.get(i);
 	%>
 	<tr> 
-	<td align="center"><%=regBean.getMemberid()%></td>
-	<td align="center"><%=regBean.getName()%></td>
+	<td align="center"><%=regBean.getId()%></td>
+	<td align="center"><%=regBean.getNickname()%></td>
 	<td align="center"><%=regBean.getPassword()%></td>
 	<td align="center"><a href="">삭제하기</a></td>
 	</tr>
@@ -57,8 +57,35 @@ ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vli
 </td>
 </tr>
 </table>
-
-
+<%
+ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>)session.getAttribute("plist");
+%>
+<table width="75%" align="center" bgcolor="">
+<tr> 
+<td align="center" bgcolor="">
+	<table width="95%" align="center" bgcolor="" border="1">
+	<tr bgcolor=""> 
+	<td align="center"><font color="">글 id</font></td>
+	<td align="center"><font color="">글 제목</font></td>
+	<td align="center"><font color="">작성자 id</font></td>
+	<td align="center"><font color="">카테고리</font></td>
+	</tr>
+	<%
+	for(int i=0; i< plist.size(); i++){
+	QuestionDTO regBean2 = (QuestionDTO)plist.get(i);
+	%>
+	<tr> 
+	<td align="center"><%=regBean2.getQuestion_id()%></td>
+	<td align="center"><%=regBean2.getQuestion_title()%></td>
+	<td align="center"><%=regBean2.getMemeber_id()%>
+	<td align="center"><%=regBean2.getcategory()%></td>
+	<td align="center"><a href="">삭제하기</a></td>
+	</tr>
+	<%}%>
+	</table>
+</td>
+</tr>
+</table>
 
 <!-- 
 	ArrayList<RegisterDTO> vList = regMgr2.selectMemberList();

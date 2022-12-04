@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="css/login2.css">
     </head>
     <body>
+    <form action="insert.do" method="post">
     <div style="width:400px; margin:auto; border-radius: 0.5rem;
         box-shadow: 0.2rem 0.30rem 0.2rem -0.12rem rgba(0, 0, 0, 0.45);">
 			<div style="text-align : center;">
@@ -16,22 +17,23 @@
        
         <div>
             <b class="input_label">UserID</b><br>
-            <input class="text" type="text" name="UserID" placeholder="아이디"><br><br>
+            <input class="text" type="text" name="id" placeholder="아이디"><br><br>
+        </div>
+        
+				<div>
+					<b class="input_label">닉네임</b><br>
+					<input class="text" type="text" name="nickname" placeholder="닉네임"><br><br>
         </div>
         <div>
             <b class="input_label">PW</b><br>
-            <input class="text" type="password" name="PW" id="user_pass" placeholder="패스워드"><br><br>
+            <input class="text" type="password" name="password" id="user_pass" placeholder="패스워드"><br><br>
         </div>
         <div>
             <b class="input_label">PW 확인</b><br>
-            <input class="text" type="password" name="PW" id="chpass" placeholder="패스워드확인">
+            <input class="text" type="password" name="PWCheck" id="chpass" placeholder="패스워드확인">
             <font name="check" size="2" color="red"></font> 
 						
 						<br><br>
-        </div>
-				<div>
-					<b class="input_label">닉네임</b><br>
-					<input class="text" type="text" name="UserID" placeholder="아이디"><br><br>
         </div>
         <div>
 					<h3> 관심있는 언어</h3>
@@ -46,7 +48,8 @@
 						<br>
             <input type="submit" class="sign_up" value="회원 가입" style="margin-bottom: 20px; color: white;"></input>		
         </div>
-       </div> 
+       </div>
+    </form> 
     </body>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
