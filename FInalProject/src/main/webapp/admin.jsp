@@ -2,6 +2,8 @@
     pageEncoding="UTF-8" import="java.util.* , com.dm.common.*"%>
 
 
+
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,31 +11,22 @@
     <title>Document</title>
 </head>
 
-<link rel="stylesheet" type="text/css" href="css/adminPage.css">
+<link rel="stylesheet" type="text/css" href="css/adminPage.css"> 
 <link rel="stylesheet" type="text/css" href="css/module.css"> 
 
 
 <body>
-    
-        <div class="top_gnb">
-            <div class="top">
-                <div id="logo" class="top_cell"><img src="./imgs/banner.png" width="140px" style="margin-left: 10px; margin-top: 4px;"></div>
-                <input type="text" id="search_textArea" class="top_cell" placeholder=" 검색"></input>
-                <a href="#search" id="search_btn" class="top_cell">검색</a>
-                <a href="#login" id="login" class="top_cell">로그인</a>
-            </div>
-        </div>
-
+    <jsp:include page="module/header.jsp"></jsp:include>
     <div class="container">
     <div>
-    	<input type="submit" value="회원 목록 보기">
-    	<input type="submit" value="글 목록 보기">
+    	<input type="submit" value="회원 목록 보기" style="margin-left: 40%;" id="memBtn">
+    	<input type="submit" value="글 목록 보기" id="queBtn">
     	<div>
 <jsp:useBean class="com.dm.common.RegisterDAO" id="regMgr2" scope="session" />    	
 <%
 ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vlist");
 %>
-<table width="75%" align="center" bgcolor="">
+<table width="75%" align="center" id="memberList">
 <tr> 
 <td align="center" bgcolor="">
 	<table width="95%" align="center" bgcolor="" border="1">
@@ -60,7 +53,7 @@ ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vli
 <%
 ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>)session.getAttribute("plist");
 %>
-<table width="75%" align="center" bgcolor="">
+<table width="75%" align="center" id="questionList">
 <tr> 
 <td align="center" bgcolor="">
 	<table width="95%" align="center" bgcolor="" border="1">
@@ -99,24 +92,38 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>)session.getAttribute("pli
 	}
 
  -->
-
-    	id 이름 비밀번호 
-    	id 글 제목 작성자id 카테고리
     	
     	</div>
     </div>
         </div>
-    <footer>
-        <div class="footer_img"><img src="./imgs/banner.png"></div>
-        <div class="footer_box">
-            <span>소개</span>
-            <span>연락처</span>
-            <span>문의</span>
-            <span>개인정보 처리방침</span>
-            <span>서비스 이용약관</span>
+        
+        <div style="margin-bottom: 30px;">
         </div>
-    </footer>
+    <jsp:include page="module/footer.jsp"></jsp:include>
 
 </body>
+<script type="text/javascript">
+const ml = document.querySelector("#memberList");
+const ql = document.querySelector("#questionList");
+const mb = document.querySelector("#memBtn");
+const qb = document.querySelector("#queBtn");
+ql.style.display = "none";
+ml.style.display = "none";
+mb.addEventListener("click",mlon)
+qb.addEventListener("click",qlon)
+
+function mlon() {
+	ml.style.display = "block";
+	ql.style.display = "none";
+}
+	
+function qlon() {
+	ql.style.display = "block";
+	ml.style.display = "none";
+}
+
+</script>
+
+
 </html>
 
