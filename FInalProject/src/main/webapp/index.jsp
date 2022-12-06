@@ -3,6 +3,7 @@
 <%@page import="com.dm.view.user.Paging"%>
 <%@page import="com.dm.common.TimeDiff"%>
 <%@page import="com.dm.common.QuestionDTO"%>
+<%@page import="com.dm.common.CategoryDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,7 +26,8 @@
 	request.setCharacterEncoding("utf-8");
 	Paging page_data = (Paging) session.getAttribute("page_data");
 	ArrayList<QuestionDTO> qlist = (ArrayList<QuestionDTO>) session.getAttribute("qlist");
-	AnswerDAO answerDAO = new AnswerDAO();
+	ArrayList<CategoryDTO> catelist = (ArrayList)session.getAttribute("catelist");
+	//AnswerDAO answerDAO = new AnswerDAO();
 	
 	TimeDiff timediff = new TimeDiff();
 

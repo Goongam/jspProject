@@ -31,8 +31,20 @@
         </div>
         <ul class="question_item_sub_ul">
             <li><%= timediff.getTimeDiff(edit_time_long) %></li>
-            <li>💬 <span class="answer_count"><%= answerDAO.SelectAnswerCount(id) %></span></li>
+            <li>💬 <span class="answer_count_<%=id%>"><%= answerDAO.SelectAnswerCount(id) %></span></li>
             <li>👁️ <%= views %></li>            
         </ul>
     </div>
 </div>
+
+<script>
+	async function getAnswerCount(){
+		const resCount = await fetch("AnswerCount.do?qid="+<%=id%>);
+		const {count} = await resCount.json();
+		console.log("<%=id%>:"+count);
+		document.querySelector(".answer_count_<%=id%>").innerText = count;
+	}
+	getAnswerCount();
+	
+	//AnswerCount.do?qid=8
+</script>

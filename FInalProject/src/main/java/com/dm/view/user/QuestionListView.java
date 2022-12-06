@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dm.common.CategoryDAO;
+import com.dm.common.CategoryDTO;
 import com.dm.common.QuestionDAO;
 import com.dm.common.QuestionDTO;
 
@@ -22,6 +24,8 @@ public class QuestionListView extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
 		Paging paging = new Paging();
 		ArrayList<QuestionDTO> qlist = null;
 		
@@ -35,6 +39,7 @@ public class QuestionListView extends HttpServlet {
 		if(request.getParameter("list_num") != null)
 			list_num = Integer.parseInt(request.getParameter("list_num"));
 		paging.setList_num(list_num);
+		
 		
 		
 		
@@ -54,22 +59,13 @@ public class QuestionListView extends HttpServlet {
 				paging.setLast_page(paging.getTotal_page());
 			}
 		 	
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
 		
-		
-		
-		
 
-		
-		
-		
-		
-
-		
-		HttpSession session = request.getSession();
 		session.setAttribute("page_data", paging);
 		session.setAttribute("qlist", qlist);
 		

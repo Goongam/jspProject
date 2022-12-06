@@ -82,9 +82,31 @@ public class RegisterDAO {
 		finally {
 			
 			JDBCutil.close(rs,pstmt, conn);	
-	}
+		}
 		return -1;
-		
-		
-}
+	}
+	
+	
+	final String SELECT_ID_CHECK = "select * from members where id = ?;";
+	public int CheckId(String id) throws SQLException{
+		try {
+			conn = JDBCutil.getConnection();
+		    pstmt = conn.prepareStatement(SELECT_ID_CHECK);
+		    pstmt.setString(1, id);
+		    rs = pstmt.executeQuery();
+		    
+		    if(rs.next()) {
+			    return 1;
+		    }
+		    
+		    return 0;
+		}catch(Exception e){
+		    e.printStackTrace();
+		}
+		finally {
+			
+			JDBCutil.close(rs,pstmt, conn);	
+		}
+		return -1;
+	}
 }

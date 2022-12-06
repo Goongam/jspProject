@@ -22,7 +22,15 @@ public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("loginCkeck");
-		response.sendRedirect("index.do");
+		String infoSaveCheck = (String)session.getAttribute("Checked");
+		
+		if(infoSaveCheck == null) { //로그아웃시 체크 해제상태라면 id,pw 세션삭제
+			session.removeAttribute("idValue");
+			session.removeAttribute("pwValue");
+		}
+		
+		
+		response.sendRedirect("login.jsp");
 		
 	}
 	

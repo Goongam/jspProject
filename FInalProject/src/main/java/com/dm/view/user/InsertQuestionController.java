@@ -44,8 +44,10 @@ public class InsertQuestionController extends HttpServlet {
 		}
 		
 		
-		//질문id값으로 질문보기화면으로 이동
-		response.sendRedirect("Question.do?qustionid="+qustion_id);
+		
+		if(qustion_id == -1) response.sendRedirect(request.getContextPath() + "/error.jsp"); //insert 실패
+		else response.sendRedirect("Question.do?qustionid="+qustion_id); //질문id값으로 질문보기화면으로 이동
+			
 	}
 
 }

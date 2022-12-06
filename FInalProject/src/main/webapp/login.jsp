@@ -15,12 +15,14 @@
 	}
 	
 	String isFail = request.getParameter("loginfail");
-	System.out.println(isFail);
+
 %>
 <body style="text-align:center;">
     <div class="login-wrapper" style="border-radius: 0.5rem;
         box-shadow: 0.2rem 0.30rem 0.2rem -0.12rem rgba(0, 0, 0, 0.45); margin: 200px auto;">
-        <img src="imgs/banner.png"><h2>Login</h2>
+        <a href="index.do"><img src="imgs/banner.png"></a>
+        
+        <h2>Login</h2>
         <%
         	if(isFail != null) out.print("아이디 비밀번호 다시 입력");
         %>

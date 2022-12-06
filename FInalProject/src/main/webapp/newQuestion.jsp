@@ -22,8 +22,12 @@
 
 <%
 
-	CategoryDAO cateDAO = new CategoryDAO();
-	ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
+	//CategoryDAO cateDAO = new CategoryDAO();
+	//ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
+	ArrayList<CategoryDTO> catelist = (ArrayList)session.getAttribute("catelist");
+	String loginCkeck = (String)session.getAttribute("loginCkeck");
+	if(loginCkeck == null) response.sendRedirect("login.jsp"); //로그아웃시 로그인페이지 이동
+	
 	String memberid =(String) session.getAttribute("idValue");
 %>
 
@@ -149,25 +153,24 @@ async function upload(url, editor){
 
 var f = document.getElementById("newQuestionForm");
 f.addEventListener("submit" , function(e) {
-
-  if(f.title.value == '' ) {
-    alert("제목을 입력하세요");
-    e.preventDefault();
-    f.title.focus();
-    return;
-  }
-  if(f.select_category.value == '' ) {
-    alert("카테고리를 선택 하세요");
-    e.preventDefault();
-    f.select_category.focus();
-    return;
-  }
-  if(f.editordata.value == '' ) {
-    alert("내용을 입력하세요");
-    e.preventDefault();
-    f.editordata.focus();
-    return;
-  }
+	if(f.title.value == '' ) {
+	    alert("제목을 입력하세요");
+	    e.preventDefault();
+	    f.title.focus();
+	    return;
+	  }
+	  if(f.select_category.value == '' ) {
+	    alert("카테고리를 선택 하세요");
+	    e.preventDefault();
+	    f.select_category.focus();
+	    return;
+	  }
+	  if(f.editordata.value == '' ) {
+	    alert("내용을 입력하세요");
+	    e.preventDefault();
+	    f.editordata.focus();
+	    return;
+	  }
   
   
   

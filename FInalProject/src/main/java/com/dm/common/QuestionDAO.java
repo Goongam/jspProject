@@ -39,7 +39,7 @@ public class QuestionDAO {
 		}finally{
 			JDBCutil.close(stmt, conn);
 		}
-		return 0;
+		return -1;
 	}
 	
 	public QuestionDTO selectQuestion(String questionid) throws SQLException{

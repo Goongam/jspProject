@@ -28,10 +28,11 @@
 
 	QuestionDTO question = (QuestionDTO)session.getAttribute("questionData");
 	ArrayList<AnswerDTO> answers = (ArrayList<AnswerDTO>)session.getAttribute("answerData");
-	VoteDAO vdao = new VoteDAO();
+	HashMap answerVoteTable =(HashMap) session.getAttribute("answerVoteTable");
 	
 	
 	String memberid = (String)session.getAttribute("idValue");
+	String loginCkeck = (String)session.getAttribute("loginCkeck");
 	TimeDiff timediff = new TimeDiff();
 
 %>
@@ -69,7 +70,7 @@
 			                        </div>
 			                        <div class="answer_vote">
 			                        	<button onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'UP')" class="vote_btn vote_btn_left">&#128077;</button>
-			                        	<span class="vote_count vote_<%=answer.getId()%>"><%=vdao.selectVote(answer.getId()+"") %></span>
+			                        	<span class="vote_count vote_<%=answer.getId()%>"><%=answerVoteTable.get(answer.getId()) %></span>
 			                        	<button onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'DOWN')" class="vote_btn vote_btn_right">&#128078;</button>
 			                        </div>
 								</div>
@@ -102,14 +103,16 @@
 	<jsp:include page="module/footer.jsp"></jsp:include>
 </body>
 <script>
+	const loginCheck = "<%=loginCkeck%>";
+
 	async function vote(id, memberid, isUp){
-		if(memberid === null || memberid === "null") {
-			alert("로그인 후 이용해주세요 / 로그인 창으로 이동");
+		if(loginCheck === "null") {
+			if(confirm("로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?"))
+				location.href = "login.jsp";
 			return;
 		}
-		console.log(memberid);
+
 		const {result, voteCount} = await fetch("AnswerVote.do?AnswerId="+id+"&memberId="+memberid+"&isUp="+isUp).then(async (res)=>await res.json()).catch(e => {console.log("데이터 입력 실패")});
-		console.log(result);
 		if(result === "already_vote") alert("이미 입력하였습니다");
 		else if(result === "success")
 			document.querySelector(".vote_"+id).innerText = voteCount;
@@ -198,7 +201,13 @@
 
 	var f = document.getElementById("newAnswerForm");
 	f.addEventListener("submit" , function(e) {
-
+		if(loginCheck === "null"){
+			e.preventDefault();
+			if(confirm("로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?"))
+				location.href = "login.jsp";
+			return;
+		}
+		
 	  if(f.title.value == '' ) {
 	    alert("제목을 입력하세요");
 	    e.preventDefault();

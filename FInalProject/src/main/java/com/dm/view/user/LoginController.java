@@ -32,8 +32,7 @@ public class LoginController extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("password");
 		String ch = request.getParameter("infosave");
-		
-		System.out.println("pw:"+id);
+	
 		
 		try {
 			int loginrs = rdao.login(id, pw);
