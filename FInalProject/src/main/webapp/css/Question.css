@@ -14,6 +14,13 @@
 	margin: 0
 }
 
+.question_content img{
+	max-width: 100%;
+}
+
+.answer_content img{
+	max-width: 100%;
+}
 .answer_count, .new_answer_text{
 	font-size: 30px;	
 	margin-bottom: 10px;

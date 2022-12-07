@@ -51,7 +51,7 @@
 						    %>
 						</select>
 	  					<textarea id="summernote" name="editordata"></textarea>
-	  					<input type="submit" id="submitBTN">
+	  					<div class="submit_wrap"><input type="submit" id="submitBTN" value="작성"></div>
 	  					<input type="hidden" name="memberId" value="<%= memberid %>">
 					</form>
 				</div>

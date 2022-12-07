@@ -21,3 +21,16 @@
 #category_select{
 	margin-bottom: 10px;
 }
+
+#submitBTN{
+	background-color: rgba(0,144,249,.5);
+	color: white;
+	border: 0px;
+	width: 100px;
+	height: 35px;
+	border-radius: 5px;
+}
+
+.submit_wrap{
+	text-align: right;
+}

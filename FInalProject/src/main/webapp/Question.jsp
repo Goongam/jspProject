@@ -20,7 +20,7 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/module.css"> 
 <link rel="stylesheet" type="text/css" href="css/Question.css"> 
-<link rel="stylesheet" type="text/css" href="./css/newQuestion.css"> 
+<link rel="stylesheet" type="text/css" href="css/newQuestion.css"> 
 
 </head>
 
@@ -87,7 +87,7 @@
 					<form method="post" action="InsertAnswer.do" id="newAnswerForm">
 						<input type="text" id="title" name="titledata">
 	  					<textarea id="summernote" name="editordata"></textarea>
-	  					<input type="submit" id="submitBTN">
+	  					<div class="submit_wrap"><input type="submit" id="submitBTN" value="작성"></div>
 	  					<input name="QuestionId" value="<%=question.getQuestion_id() %>" type="hidden"></input>
 	  					<input type="hidden" name="memberId" value="<%= memberid %>">
 					</form>
