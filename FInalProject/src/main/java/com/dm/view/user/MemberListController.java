@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dm.common.QuestionDAO;
+import com.dm.common.QuestionDTO;
 import com.dm.common.RegisterDAO;
 import com.dm.common.RegisterDTO;
 
@@ -23,10 +25,14 @@ public class MemberListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		RegisterDAO rdao = new RegisterDAO();
+		QuestionDAO pdao = new QuestionDAO();
 		
 		try {
-			ArrayList<RegisterDTO> aList = rdao.selectMemberList();
-			session.setAttribute("vlist", aList);
+			ArrayList<RegisterDTO> mList = rdao.selectMemberList();
+			session.setAttribute("vlist", mList);
+			ArrayList<QuestionDTO> pList = pdao.selectPostList();
+			session.setAttribute("plist", pList);
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 			dispatcher.forward(request, response);
 			
