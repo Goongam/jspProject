@@ -19,11 +19,6 @@ import com.dm.common.QuestionDTO;
 public class QuestionListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public QuestionListController() {
-        super();
-    }
-
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QuestionDAO pdao = new QuestionDAO();
 		try {

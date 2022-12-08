@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.* , com.dm.common.*"%>
 
-
-
-
+<jsp:useBean class="com.dm.common.RegisterDAO" id="regMgr2" scope="session" />    	
+<%
+ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vlist");
+ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>)session.getAttribute("plist");
+%>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,14 +24,11 @@
     	<input type="submit" value="회원 목록 보기" style="margin-left: 40%;" id="memBtn">
     	<input type="submit" value="글 목록 보기" id="queBtn">
     	<div>
-<jsp:useBean class="com.dm.common.RegisterDAO" id="regMgr2" scope="session" />    	
-<%
-ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vlist");
-%>
+
 <table width="75%" align="center" id="memberList">
 <tr> 
 <td align="center" bgcolor="">
-	<table width="95%" align="center" bgcolor="" border="1">
+	<table width="95%" align="center" bgcolor="lightblue" border="1">
 	<tr bgcolor=""> 
 	<td align="center"><font color="">회원아이디</font></td>
 	<td align="center"><font color="">회원이름</font></td>
@@ -50,13 +49,11 @@ ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>)session.getAttribute("vli
 </td>
 </tr>
 </table>
-<%
-ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>)session.getAttribute("plist");
-%>
+
 <table width="75%" align="center" id="questionList">
 <tr> 
 <td align="center" bgcolor="">
-	<table width="95%" align="center" bgcolor="" border="1">
+	<table width="95%" align="center" bgcolor="lightblue" border="1">
 	<tr bgcolor=""> 
 	<td align="center"><font color="">글 id</font></td>
 	<td align="center"><font color="">글 제목</font></td>
@@ -100,7 +97,6 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>)session.getAttribute("pli
         <div style="margin-bottom: 30px;">
         </div>
     <jsp:include page="module/footer.jsp"></jsp:include>
-
 </body>
 <script type="text/javascript">
 const ml = document.querySelector("#memberList");
@@ -121,9 +117,6 @@ function qlon() {
 	ql.style.display = "block";
 	ml.style.display = "none";
 }
-
 </script>
-
-
 </html>
 

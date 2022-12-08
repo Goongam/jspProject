@@ -19,16 +19,13 @@ import com.dm.common.RegisterDTO;
 public class MemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberListController() {
-        super();
-    }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		RegisterDAO rdao = new RegisterDAO();
+		
 		try {
 			ArrayList<RegisterDTO> aList = rdao.selectMemberList();
-			HttpSession session = request.getSession();
 			session.setAttribute("vlist", aList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 			dispatcher.forward(request, response);

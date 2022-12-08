@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class JDBCutil {
 	final static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	final static String JDBC_URL = "jdbc:mysql://localhost:3306/comproject?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf-8";
-	final static String JDBC_USER = "newuser"; //계정
+	final static String JDBC_USER = "root"; //계정
 	final static String JDBC_PASS = "1234"; //
 	
 	public static Connection getConnection() { 
