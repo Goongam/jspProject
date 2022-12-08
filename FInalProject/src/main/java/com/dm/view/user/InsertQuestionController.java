@@ -33,6 +33,8 @@ public class InsertQuestionController extends HttpServlet {
 		questionDTO.setMemeber_id(request.getParameter("memberId"));
 		questionDTO.setAnonymous(false);
 		questionDTO.setcategory(request.getParameter("select_category"));
+		if(request.getParameter("anonymous") != null) questionDTO.setAnonymous(true);
+		else questionDTO.setAnonymous(false);
 		
 		int qustion_id = 0;
 		QuestionDAO questionDAO = new QuestionDAO();

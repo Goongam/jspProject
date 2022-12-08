@@ -19,7 +19,7 @@
 }
 
 #category_select{
-	margin-bottom: 10px;
+	
 }
 
 #submitBTN{
@@ -33,4 +33,50 @@
 
 .submit_wrap{
 	text-align: right;
+}
+
+.new_qustion_options{
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.anony_selection{
+	margin-left: 10px
+}
+/*토글 스위치*/
+.toggleSwitch {
+  width: 50px;
+  height: 20px;
+  /*display: block;*/
+  position: relative;
+  border-radius: 30px;
+  border: 1px solid #cccccc;
+  background-color: #fff;
+  cursor: pointer;
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+
+.toggleSwitch .toggleButton {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: rgb(11,127,211);
+}
+
+#toggle:checked ~ .toggleSwitch {
+  background: rgb(11,127,211);
+}
+
+#toggle:checked ~ .toggleSwitch .toggleButton {
+  left: calc(100% - 17px);
+  background: #fff;
+}
+
+.toggleSwitch, .toggleButton {
+  transition: all 0.2s ease-in;
 }

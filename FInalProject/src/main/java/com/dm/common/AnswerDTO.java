@@ -11,6 +11,7 @@ public class AnswerDTO {
 	private int vote;
 	private int question_id;
 	private Timestamp edit_time;
+	private String member_nickname;
 	
 	
 	public int getId() {
@@ -60,6 +61,12 @@ public class AnswerDTO {
 	}
 	public void setEdit_time(Timestamp edit_time) {
 		this.edit_time = edit_time;
+	}
+	public String getMember_nickname() {
+		return member_nickname;
+	}
+	public void setMember_nickname(String member_nickname) {
+		this.member_nickname = member_nickname;
 	}
 	
 	

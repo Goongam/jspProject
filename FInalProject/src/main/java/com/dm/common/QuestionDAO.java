@@ -42,12 +42,14 @@ public class QuestionDAO {
 		return -1;
 	}
 	
+	String SELECT_QUESTION = "select questions.id, title, content, member_id, anonymous, category, views, edit_time, nickname from questions,members where questions.member_id = members.id and questions.id = ?;";
 	public QuestionDTO selectQuestion(String questionid) throws SQLException{
 		QuestionDTO dto = new QuestionDTO();
 		
 		try {
 			conn = JDBCutil.getConnection();
-			stmt = conn.prepareStatement("select * from questions where id = "+questionid);
+			stmt = conn.prepareStatement(SELECT_QUESTION);
+			stmt.setString(1, questionid);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
 				dto.setQuestion_id(rs.getInt("id"));
@@ -58,6 +60,7 @@ public class QuestionDAO {
 				dto.setcategory(rs.getString("category"));
 				dto.setViews(rs.getInt("views"));
 				dto.setEdit_time(rs.getTimestamp("edit_time"));
+				dto.setMember_nickname(rs.getString("nickname"));
 			}else { //글 없음
 				return null;
 			}

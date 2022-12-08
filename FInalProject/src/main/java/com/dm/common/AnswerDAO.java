@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AnswerDAO {
 
-	final String ANSWER_SELECT = "select * from answers where question_id = ? order by vote desc, edit_time desc;";
+	final String ANSWER_SELECT = "select answers.id, title, content, member_id, anonymous, vote, question_id, edit_time, nickname from answers,members where answers.member_id = members.id and question_id = ? order by vote desc, edit_time desc;";
 
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -34,6 +34,7 @@ public class AnswerDAO {
 				adto.setVote(rs.getInt("vote"));
 				adto.setQuestion_id(rs.getInt("question_id"));
 				adto.setEdit_time(rs.getTimestamp("edit_time"));
+				adto.setMember_nickname(rs.getString("nickname"));
 				AnswerList.add(adto);
 			}
 			

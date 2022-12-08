@@ -42,14 +42,23 @@
 				<div class="new_question_box">
 					<form method="post" action="InsertQuestion.do" id="newQuestionForm">
 						<input type="text" id="title" name="titledata">
-						<select name="select_category" id="category_select">
+						<div class="new_qustion_options">
+							<select name="select_category" id="category_select">
 						    <option value="">카테고리 선택</option>
 						    <%
 						    	for(CategoryDTO category : catelist){
 						    		out.print("<option value='"+category.getCategory_name()+"'>"+category.getCategory_name()+"</option>");
 						    	}
 						    %>
-						</select>
+							</select>
+							
+							<input type="checkbox" id="toggle" name="anonymous" hidden> 
+							<div class="anony_selection">익명 질문:</div>
+							<label for="toggle" class="toggleSwitch">
+							  <span class="toggleButton"></span>
+							</label>
+						</div>
+						
 	  					<textarea id="summernote" name="editordata"></textarea>
 	  					<div class="submit_wrap"><input type="submit" id="submitBTN" value="작성"></div>
 	  					<input type="hidden" name="memberId" value="<%= memberid %>">

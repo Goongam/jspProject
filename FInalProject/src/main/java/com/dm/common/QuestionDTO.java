@@ -11,7 +11,7 @@ public class QuestionDTO {
  	private String category;
  	private int views;	
  	private Timestamp edit_time;
- 	
+ 	private String member_nickname;
  	
  	
  	public int getQuestion_id() {
@@ -61,6 +61,12 @@ public class QuestionDTO {
 	}
 	public void setcategory(String category) {
 		this.category = category;
+	}
+	public String getMember_nickname() {
+		return member_nickname;
+	}
+	public void setMember_nickname(String member_nickname) {
+		this.member_nickname = member_nickname;
 	}
 	
 	/*

@@ -48,7 +48,8 @@
 					<div class="question_inner">
 						<div class="question_member_info">
 							<img class="profile_img" src="imgs/todayQ.png">
-							<span><%= question.getMemeber_id() %></span>
+							<span><% if(question.getAnonymous()) out.print("익명");
+									 else out.print(question.getMember_nickname());%></span>
 							<span><%= timediff.getTimeDiff(question.getEdit_time().getTime()) %></span>
 							<span>👁️ <%= question.getViews() %></span>
                         </div>
@@ -60,12 +61,14 @@
 				<div class="answer">
 					<%
 						for(AnswerDTO answer : answers){
+						
 							%>
 							<div class="answer_inner">
 								<div class="answer_info_warp">
 									<div class="question_member_info">
 										<img class="profile_img" src="imgs/todayQ.png">
-										<span><%= answer.getMember_id() %></span>
+										<span><% if(answer.isAnonymous()) out.print("익명");
+												 else out.print(answer.getMember_nickname());%></span>
 										<span><%= timediff.getTimeDiff(answer.getEdit_time().getTime()) %></span>
 			                        </div>
 			                        <div class="answer_vote">
@@ -86,6 +89,15 @@
 				<div class="new_answer_box">
 					<form method="post" action="InsertAnswer.do" id="newAnswerForm">
 						<input type="text" id="title" name="titledata">
+						
+						<div class="new_qustion_options">
+							<input type="checkbox" id="toggle" name="anonymous" hidden> 
+							<div class="anony_selection">익명 답변:</div>
+							<label for="toggle" class="toggleSwitch">
+							  <span class="toggleButton"></span>
+							</label>
+						</div>
+						
 	  					<textarea id="summernote" name="editordata"></textarea>
 	  					<div class="submit_wrap"><input type="submit" id="submitBTN" value="작성"></div>
 	  					<input name="QuestionId" value="<%=question.getQuestion_id() %>" type="hidden"></input>
