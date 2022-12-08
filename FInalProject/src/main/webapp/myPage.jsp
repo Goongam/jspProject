@@ -21,21 +21,6 @@
 <link rel="stylesheet" type="text/css" href="css/module.css"> 
 
 
-<%
-	request.setCharacterEncoding("utf-8");
-	Paging page_data = (Paging) session.getAttribute("page_data");
-	ArrayList<QuestionDTO> qlist = (ArrayList<QuestionDTO>) session.getAttribute("qlist");
-	AnswerDAO answerDAO = new AnswerDAO();
-	
-	TimeDiff timediff = new TimeDiff();
-
-
-	int current_page = page_data.getCurrent_page();
-	int start_page = page_data.getStart_page();
-	int last_page = page_data.getLast_page();
-	int list_num = page_data.getList_num();
-	int total_page = page_data.getTotal_page();
-%>
 
 <body>
     
@@ -45,54 +30,38 @@
         <div class="section">
             <div class="content">
             	<div class="qlist">
-                <div class="qlist_top">Q&A</div>
-                
-                
-                
+                <div class="qlist_top">누구누구 님의 마이페이지 	 </div>
+                	<div style="width: 100%; background-color:lightgray; height: 400px; margin-top: 10px; border-radius: 0.5rem;
+        					box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45); overflow: auto; ">
+                		<div style="width: 15%; height: 150px; margin-top:40px; margin-left: 40px; background-color:yellow; float: left;" >
+                		<img alt="asdf" src="imgs/banner.png"></div>
+                		<div style="background-color: green; width: 60%; height: 150px; margin-top:40px; margin-left: 40px; float: left;">자기소개</div>
+                		<button style="float: right; margin-top:10px; margin-right: 10px; font-size: 15px; background-color: lightblue; color: white; ">정보수정</button>
+                		<div style="background-color: lightgreen; width: 15%; height: 150px; margin-top:40px; margin-left: 40px; float: left;">뱃지</div>
+                		<div style="background-color: lightblue; width: 60%; height: 150px; margin-top:40px; margin-left: 40px; float: left;">
+                		<h3>~~님의 관심 카테고리</h3><br>
+              			~~~님의 관심 카테고리는 <button>1</button> <button>2</button> <button>3</button> 입니다.</div>
+                	</div>
+                	<div style="width: 100%; background-color:lightgray; height: 200px; margin-top: 10px; border-radius: 0.5rem;
+        					box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45); overflow: auto; ">
+                		<div style="background-color: lightblue; width: 40%; height:70px; float: left; margin-top: 20px; margin-left: 20px;" >
+                		<h2 style="font-weight: bold;">오늘의 방문횟수 : </h2></div>
+                		<div style="background-color: lightblue; width: 40%; height:70px; float: left; margin-top: 20px; margin-left: 20px;" ><h2 style="font-weight: bold;">오늘의 방문횟수 : </h2></div>
+                		<div style="background-color: lightblue; width: 40%; height:70px; float: left; margin-top: 20px; margin-left: 20px;" ><h2 style="font-weight: bold;">오늘의 방문횟수 : </h2></div>
+                		<div style="background-color: lightblue; width: 40%; height:70px; float: left; margin-top: 20px; margin-left: 20px;" ><h2 style="font-weight: bold;">오늘의 방문횟수 : </h2></div>
                 <div class="paging_box">
                     <div class="paging_warp">
-                        <%
-                        	
-                        	if(start_page != 1) {
-                        		%>
-                    			<a 
-                    				href=<%=request.getContextPath()+"/index.do?"+"p="+(start_page-1)+"&list_num="+list_num%>
-                    				class="icon prev"
-                    			>이전</a>
-                    			<%
-                        	}
-                        	
-                        
-                        	for(int i = start_page; i <= last_page ; i++){
-                        		
-                        		String isCurrent = (i == current_page) ? "current_page" : "";
-      
-                        		%>
-                        			<a 
-                        				href=<%=request.getContextPath()+"/index.do?"+"p="+i+"&list_num="+list_num%>
-                        				class="<%= isCurrent %>"
-                        			><%=i %></a>
-                        		<%
-                        	}
-                        	
-                        	if(last_page != total_page) {
-                        		%>
-                    			<a 
-                    				href=<%=request.getContextPath()+"/index.do?"+"p="+(last_page+1)+"&list_num="+list_num%>
-                    				class="icon next"
-                    			>다음</a>
-                    			<%
-                        	}
-                        %>
+                      
 
                     </div>
                     
                 </div>
             </div>
             </div>
-            <jsp:include page="module/rightwarp.jsp"></jsp:include>
+            
         </div>
-        
+        <div style="width: 20%; height: 300px; background-color: lightblue; margin: 0 auto; margin-top: 10px;" ></div>
+        <div style="width: 20%; height: 300px; background-color: lightgray; margin-top: 10px; float: right;"></div>
     </div>
     <jsp:include page="module/footer.jsp"></jsp:include>
 
