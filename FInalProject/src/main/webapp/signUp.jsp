@@ -9,7 +9,7 @@
     	<script src="https://malsup.github.io/jquery.form.js"></script> 
     </head>
     <body>
-    <form action="insert.do" method="post" class="signUpForm" name="smf">
+    <form action="insert1.do" method="post" class="signUpForm" name="smf">
     <div style="width:400px; margin:auto; border-radius: 0.5rem;
         box-shadow: 0.2rem 0.30rem 0.2rem -0.12rem rgba(0, 0, 0, 0.45);">
 			<div style="text-align : center;">

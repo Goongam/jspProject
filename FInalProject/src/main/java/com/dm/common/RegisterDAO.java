@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class RegisterDAO {
 
 	
-	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?);";
+	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?,?);";
 	final String USER_LIST = "select * from members;";
 	final String Login = "select password from members where id=?;";
 	final String GET_NICK = "select nickname from members where id=?;";
@@ -21,19 +21,20 @@ public class RegisterDAO {
 	ResultSet rs = null;
 	
 	public void insertMember(RegisterDTO mem) throws SQLException{
-		
+
 		try{
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(USER_INSERT); //3
 			pstmt.setString(1, mem.getId());
 			pstmt.setString(2, mem.getNickname());
 			pstmt.setString(3, mem.getPassword());
-			pstmt.setBoolean(4, false);
-			pstmt.setInt(5, 0);
-			pstmt.setString(6, null);
+			pstmt.setBoolean(4, false); //isadmin
+			pstmt.setInt(5, 0); //visit
+			pstmt.setString(6, null); //profile_img_url
+			pstmt.setString(7, null); //introduce
 			pstmt.executeUpdate();
 		}catch(Exception e){
-			System.out.println(e);
+			e.printStackTrace();
 		}finally{
 			JDBCutil.close(pstmt, conn);
 		}
