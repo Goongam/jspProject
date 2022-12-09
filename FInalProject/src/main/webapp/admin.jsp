@@ -92,24 +92,13 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 						</td>
 					</tr>
 				</table>
-
-				<!-- 
-	ArrayList<RegisterDTO> vList = regMgr2.selectMemberList();
-	for(int i=0; i < vList.size(); i++){
-		RegisterDTO regBean = vList.get(i);
-		out.println(regBean.getMemberid() + ",");
-		out.println(regBean.getPassword() + ",");
-		out.println(regBean.getName() + ",");
-		out.println(regBean.getEmail() + "<br>");
-		System.out.println("jejeje");
-	}
-
- -->
-
+				
 			</div>
+			
 		</div>
+		
 	</div>
-
+	
 	<div style="margin-bottom: 30px;"></div>
 	<jsp:include page="module/footer.jsp"></jsp:include>
 </body>

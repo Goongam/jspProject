@@ -5,6 +5,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
+
 <div class="warp_right">
             <div id="question_btn" class="border">
                 <a href="NewQuestion.do">

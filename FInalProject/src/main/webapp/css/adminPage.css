@@ -11,3 +11,6 @@ table thead tr {
 width: 80%;
 
 }
+.container{
+	display: flex;
+}

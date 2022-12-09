@@ -12,7 +12,8 @@ public class RegisterDAO {
 	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?);";
 	final String USER_LIST = "select * from members;";
 	final String Login = "select password from members where id=?;";
-	final String ADMIN_CHECK = "select is_admin from members where id=?;";
+	final String GET_NICK = "select nickname from members where id=?;";
+	final String ADMIN_CHECK = "select is_admin from members where id=? and is_admin = 1;";
 	final String DELETE_M = "delete from members where id = ?";
 	
 	Connection conn = null;
@@ -123,6 +124,8 @@ public class RegisterDAO {
 			if(rs.next()) {
 				return "admin";
 			}
+			else
+				return null;
 		}catch(Exception e){
 			System.out.println(e);
 		}finally{
@@ -147,4 +150,26 @@ public class RegisterDAO {
 	
 
 	}
+	
+	
+	public String getNickname(String memberId) throws SQLException{
+		try{
+			conn = JDBCutil.getConnection();
+			pstmt = conn.prepareStatement(GET_NICK);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("nickname");
+			}
+			
+	
+		}catch(Exception e){
+			System.out.println(e);
+		}finally{
+			JDBCutil.close(rs, pstmt, conn);
+		}
+		return null;
+
+	}
+	
 }
