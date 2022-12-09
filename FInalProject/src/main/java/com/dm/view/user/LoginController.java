@@ -42,6 +42,7 @@ public class LoginController extends HttpServlet {
 				session.setAttribute("loginCkeck","ok");
 				session.setAttribute("idValue",id);
 				session.setAttribute("pwValue",pw);
+				session.setAttribute("isadmin", rdao.isAdmin(id));
 				if(ch != null) 
 					session.setAttribute("Checked","Checked");
 				else 

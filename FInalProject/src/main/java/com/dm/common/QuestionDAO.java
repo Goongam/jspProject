@@ -12,6 +12,7 @@ public class QuestionDAO {
 	
 	final String QUESTION_SELECT = "select * from questions where id = ?";
 	final String QUESTION_ALL_SELECT = "select * from questions;";
+	final String DELETE_Q = "delete from questions where id = ?";
 	
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -61,7 +62,7 @@ public class QuestionDAO {
 				dto.setViews(rs.getInt("views"));
 				dto.setEdit_time(rs.getTimestamp("edit_time"));
 				dto.setMember_nickname(rs.getString("nickname"));
-			}else { //글 없음
+			}else { //湲� �뾾�쓬
 				return null;
 			}
 			
@@ -129,8 +130,6 @@ public class QuestionDAO {
 				dto.setcategory(rs.getString("category"));
 				dto.setViews(rs.getInt("views"));
 				dto.setEdit_time(rs.getTimestamp("edit_time"));
-				
-				
 				alist.add(dto);
 			}
 			
@@ -331,28 +330,22 @@ public class QuestionDAO {
 		}
 		return aList;
 	}
+
 	
-//	public ArrayList<QuestionDTO> selectMemberList() throws SQLException{
-//		try{
-//		 	conn = JDBCutil.getConnection();
-//			stmt = conn.prepareStatement(USER_LIST);
-//			rs = stmt.executeQuery();
-//			alist = new ArrayList<QuestionDTO>();
-//			while(rs.next()) {
-//				QuestionDTO rd = new QuestionDTO();
-//				rd.setMemberid(rs.getString("memberid"));
-//				rd.setPassword(rs.getString("password"));
-//				rd.setName(rs.getString("name"));
-//				rd.setEmail(rs.getString("email"));
-//				alist.add(rd);
-//			}
-//			
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}finally{
-//			JDBCutil.close(rs, stmt, conn);
-//		}
-//		
-//		return alist;
-//	}
+	public void DeleteQuestion(String report_q) throws SQLException{
+		try{
+			conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(DELETE_Q);
+			stmt.setString(1, report_q);
+			System.out.println(stmt.executeUpdate());
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}finally{
+			JDBCutil.close(stmt, conn);
+		}
+	
+
+	}
 }
+	

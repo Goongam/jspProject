@@ -27,9 +27,10 @@ public class LogoutController extends HttpServlet {
 		if(infoSaveCheck == null) { //로그아웃시 체크 해제상태라면 id,pw 세션삭제
 			session.removeAttribute("idValue");
 			session.removeAttribute("pwValue");
+			
 		}
 		
-		
+		session.removeAttribute("isadmin");
 		response.sendRedirect("login.jsp");
 		
 	}

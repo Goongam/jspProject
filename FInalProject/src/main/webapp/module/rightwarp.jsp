@@ -13,9 +13,23 @@
             </div>
 
 			<div id="mypage_btn" class="border">
-                <a href="#mypage">
+			<%
+				if(session.getAttribute("isadmin") != null){
+					%>
+					<a href="list.do">
+                    관리자 페이지
+                </a>
+                <% 
+				}
+				else{
+					%>
+					<a href="myPage.jsp">
                     마이페이지
                 </a>
+                <%
+				}
+			%>
+         
             </div>
 
             <div class="categorys"></div>

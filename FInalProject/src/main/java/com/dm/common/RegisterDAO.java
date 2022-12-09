@@ -12,6 +12,9 @@ public class RegisterDAO {
 	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?);";
 	final String USER_LIST = "select * from members;";
 	final String Login = "select password from members where id=?;";
+	final String ADMIN_CHECK = "select is_admin from members where id=?;";
+	final String DELETE_M = "delete from members where id = ?";
+	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -62,6 +65,7 @@ public class RegisterDAO {
 		return aList;
 	}
 	
+	
 	public int login(String id, String pw) throws SQLException{
 		try {
 			conn = JDBCutil.getConnection();
@@ -108,5 +112,39 @@ public class RegisterDAO {
 			JDBCutil.close(rs,pstmt, conn);	
 		}
 		return -1;
+	}
+	
+	public String isAdmin(String memberId) throws SQLException{
+		try{
+			conn = JDBCutil.getConnection();
+			pstmt = conn.prepareStatement(ADMIN_CHECK);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return "admin";
+			}
+		}catch(Exception e){
+			System.out.println(e);
+		}finally{
+			JDBCutil.close(rs, pstmt, conn);
+		}
+		return null;
+	}
+		
+	
+	public void DeleteMember(String memberId) throws SQLException{
+		try{
+			conn = JDBCutil.getConnection();
+			pstmt = conn.prepareStatement(DELETE_M);
+			pstmt.setString(1, memberId);
+			System.out.println(pstmt.executeUpdate());
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}finally{
+			JDBCutil.close(pstmt, conn);
+		}
+	
+
 	}
 }
