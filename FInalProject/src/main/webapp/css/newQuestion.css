@@ -43,6 +43,11 @@
 .anony_selection{
 	margin-left: 10px
 }
+
+#submitBTN:hover{
+	color : #858585;
+}
+
 /*토글 스위치*/
 .toggleSwitch {
   width: 50px;

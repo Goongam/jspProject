@@ -5,9 +5,11 @@
     <head>
         <title>SIGNUP</title>
         <link rel="stylesheet" href="css/login2.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+    	<script src="https://malsup.github.io/jquery.form.js"></script> 
     </head>
     <body>
-    <form action="insert.do" method="post" class="signUpForm">
+    <form action="insert.do" method="post" class="signUpForm" name="smf">
     <div style="width:400px; margin:auto; border-radius: 0.5rem;
         box-shadow: 0.2rem 0.30rem 0.2rem -0.12rem rgba(0, 0, 0, 0.45);">
 			<div style="text-align : center;">
@@ -72,41 +74,66 @@
   }); //#chpass.keyup
  });
  
+ 
+ var option = {
+		    //dataType : 'json', //JSON형태로 전달도 가능합니다.
+		    url: "insert.do",
+		    success: function(res){
+		        //alert(res.msg); //res Object안에 msg에는 결과 메시지가 담겨있습니다.
+		    },
+		    error: function(res){
+		        alert("에러가 발생했습니다.")
+		    }
+		}
+ 
+
+ $('.signUpForm').submit(function() { //submit이 발생하면
+
+	 	if(this.id.value == '' ){
+	 		this.id.style.borderColor = "red";
+	 		return false;
+	 	}
+	 	
+		if(this.nickname.value == '' ){
+	 		this.nickname.style.borderColor = "red";
+	 		return false;
+	 	}
+		
+		if(this.password.value == '' ){
+	 		this.password.style.borderColor = "red";
+	 		return false;
+	 	}
+		if(this.PWCheck.value == '' ){
+	 		this.PWCheck.style.borderColor = "red";
+	 		return false;
+	 	}
+		if(!isPassSame){
+	 		this.PWCheck.style.borderColor = "red";
+	 		return false;
+	 	}
+		
+
+		$.get("CheckId.do?id="+this.id.value, (data, status)=>{
+		    if(data == "1"){
+		    	alert("이미 존재하는 아이디 입니다");
+		    }else{
+		    	let form= document.querySelector(".signUpForm");
+		    	form.submit();
+		    	
+		    }
+		    
+		 });
+
+		
+	    return false; //기본 동작인 submit의 동작을 막아 페이지 reload를 막는다.
+	});
+ 
  function preventBlink(e, element){
 	e.preventDefault();
 	element.style.borderColor = "red";
  }
  
- var f = document.querySelector(".signUpForm");
- f.addEventListener("submit" , async function(e) {
-
- 	if(e.target.id.value == '' ) 
- 		preventBlink(e, e.target.id);
- 	
- 	
-	if(e.target.nickname.value == '' ) 
-		preventBlink(e, e.target.nickname);
-	
-	
-	if(e.target.password.value == '' ) 
-		preventBlink(e, e.target.password);
-	
-	if(e.target.PWCheck.value == '' ) 
-		preventBlink(e, e.target.PWCheck);
-	
-	if(!isPassSame){ //비밀번호 체크
-		e.preventDefault();
-		e.target.PWCheck.style.borderColor = "red";
-	}
-	
-	const loginCheck = await fetch("CheckId.do?id="+e.target.id.value).then(e=>e.text());
-	console.log(loginCheck);
-	if(loginCheck == "1"){
-		e.preventDefault();
-		e.target.id.style.borderColor = "red";
-		alert("이미 존재하는 아이디 입니다");
-	}
- });
+ 
  
  var textArr = document.querySelectorAll(".text");
  textArr.forEach(ele => {
