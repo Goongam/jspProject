@@ -44,9 +44,19 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 									<td align="center"><%=regBean.getId()%></td>
 									<td align="center"><%=regBean.getNickname()%></td>
 									<td align="center"><%=regBean.getPassword()%></td>
-									<td align="center"><a href="">삭제하기</a></td>
+									<% 
+									if(regBean.getId().equals("admin")){
+										%><td align="center">관리자</td><%
+									}
+									else{
+									 %>
+									 <td align="center"><a href="delete_m.do?delM=<%=regBean.getId()%>">삭제하기</a></td>
+									 <%
+									}
+									%>
 								</tr>
 								<%
+								
 								}
 								%>
 							</table>
@@ -73,7 +83,7 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 									<td align="center"><%=regBean2.getQuestion_title()%></td>
 									<td align="center"><%=regBean2.getMemeber_id()%>
 									<td align="center"><%=regBean2.getcategory()%></td>
-									<td align="center"><a href="">삭제하기</a></td>
+									<td align="center"><a href="delete_q.do?delQ=<%= regBean2.getQuestion_id() %>">삭제하기</a></td>
 								</tr>
 								<%
 								}
