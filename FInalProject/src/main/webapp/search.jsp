@@ -24,8 +24,8 @@
 	request.setCharacterEncoding("utf-8");
 	Paging page_data = (Paging) session.getAttribute("page_data");
 	ArrayList<QuestionDTO> qlist = (ArrayList<QuestionDTO>) session.getAttribute("qlist");
-	String category = (String) session.getAttribute("category");
-	String search = (String) session.getAttribute("search");
+	String category_attr = (String) session.getAttribute("category");
+	String search_attr = (String) session.getAttribute("search");
 	TimeDiff timediff = new TimeDiff();
 
 	//dsadasdasdasdadasdasdasdsadasdad
@@ -35,8 +35,8 @@
 	int list_num = page_data.getList_num();
 	int total_page = page_data.getTotal_page();
 	
-	category = category != null ? ("&category="+category) : "";
-	search = search != null ? ("&search="+search) : "";
+	String category = category_attr != null ? ("&category="+category_attr) : "";
+	String search = search_attr != null ? ("&search="+search_attr) : "";
 
 %>
 
@@ -48,7 +48,22 @@
         <div class="section">
             <div class="content">
             	<div class="qlist">
-                <div class="qlist_top">Q&A</div>
+                <div class="qlist_top">
+                	<% 
+                	
+                		if(!search_attr.equals("%")){ //search 있을때
+                			if(category_attr != null) //cate 있을때 -> 둘다있을때
+                				out.print(category_attr+"카테고리의 "+search_attr+"검색결과");
+                    		else //없을때 -> search만 있을때
+                    			out.print(search_attr+"의 검색결과");
+                		}else{
+                			if(category_attr != null) //cate 있을때 -> 카테고리만 있을때
+                    			out.print(category_attr+"카테고리 글 목록");
+                    		else //없을때 -> 둘다 없을 때
+                    			out.print("Q&A");
+                		}
+               		%>
+                </div>
                 
                 <%
 	                for(QuestionDTO q : qlist){

@@ -11,7 +11,7 @@
         	<a href="<%= request.getContextPath() %>/index.do"><img src="<%= request.getContextPath() %>/imgs/banner.png" width="140px" style="margin-left: 10px; margin-top: 4px;"></a>
         </div>
         <input type="text" id="search_textArea" class="top_cell" placeholder=" 검색"></input>
-        <a href="#search" id="search_btn" class="top_cell">검색</a>
+        <button href="#search" id="search_btn" class="top_cell">검색</button>
         
        <%
        	
@@ -28,3 +28,17 @@
         
     </div>
 </div>
+
+<script>
+	let searchInput = document.querySelector("#search_textArea");
+
+	searchInput.addEventListener("keydown", e => {
+		if(e.key === "Enter")
+			location.href = "Search.do?search="+e.target.value;
+	})
+	
+	let searchBtn = document.querySelector("#search_btn");
+	searchBtn.addEventListener("click", e => {
+		location.href = "Search.do?search="+searchInput.value;
+	})
+</script>

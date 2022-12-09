@@ -21,13 +21,11 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 <body>
 	<jsp:include page="module/header.jsp"></jsp:include>
 	<div class="container">
-		<div>
-			<input type="submit" value="회원 목록 보기" style="margin-left: 40%;"
-				id="memBtn"> <input type="submit" value="글 목록 보기"
-				id="queBtn">
-			<div>
-
-				<table width="75%" align="center" id="memberList">
+			<input type="submit" value="회원 목록 보기" id="memBtn"> 
+			<input type="submit" value="글 목록 보기" id="queBtn">
+		<div class="admin_content">
+			<div class="table_wrap">
+				<table width="100%" align="center" id="memberList">
 					<tr>
 						<td align="center" bgcolor="">
 							<table width="95%" align="center" bgcolor="lightblue" border="1">
@@ -64,7 +62,7 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 					</tr>
 				</table>
 
-				<table width="75%" align="center" id="questionList">
+				<table width="100%" align="center" id="questionList">
 					<tr>
 						<td align="center" bgcolor="">
 							<table width="95%" align="center" bgcolor="lightblue" border="1">
@@ -94,7 +92,22 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 				</table>
 				
 			</div>
-			
+			<div class="report_list">
+				<div class="report_text">신고내역</div>
+				
+				<div class="report_article">
+					<div><a href="#">글제목</a></div>
+					<div>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</div>
+					<div class="delete_report"><a href="#">🗑</a></div>
+				</div>
+				
+				<div class="report_article">
+					<div><a href="#">글제목</a></div>
+					<div>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</div>
+					<div class="delete_report"><a href="#">🗑</a></div>
+				</div>
+				
+			</div>
 		</div>
 		
 	</div>
@@ -108,7 +121,7 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 	const mb = document.querySelector("#memBtn");
 	const qb = document.querySelector("#queBtn");
 	ql.style.display = "none";
-	ml.style.display = "none";
+	ml.style.display = "block";
 	mb.addEventListener("click", mlon)
 	qb.addEventListener("click", qlon)
 

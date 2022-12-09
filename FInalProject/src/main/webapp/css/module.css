@@ -38,6 +38,7 @@
     .container{
         width: var(--root-width);
         margin: 0 auto;
+        min-height: 800px;
     }
 
     .top_gnb{
