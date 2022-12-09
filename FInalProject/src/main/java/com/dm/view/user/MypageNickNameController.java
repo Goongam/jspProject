@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.dm.common.RegisterDAO;
 
-@WebServlet("/nickname.do")
+@WebServlet("/getinfo.do")
 public class MypageNickNameController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,9 +22,12 @@ public class MypageNickNameController extends HttpServlet {
 		HttpSession session = request.getSession();
 		RegisterDAO rdao = new RegisterDAO();
 		String nick = (String)session.getAttribute("idValue");
-		
+		System.out.println(session.getAttribute("idValue"));
 		try {
+			System.out.println("getinfo로 옴");
 			session.setAttribute("nickName",rdao.getNickname(nick));
+			session.setAttribute("profileImg",rdao.getProfileImg(nick));
+			session.setAttribute("introduce",rdao.getIntroduce(nick));
 			RequestDispatcher dispatcher = request.getRequestDispatcher("myPage.jsp");
 			dispatcher.forward(request, response);
 			

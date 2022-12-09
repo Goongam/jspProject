@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class RegisterDAO {
+public class RegisterDAO2 {
 
 	
-	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?,?);";
+	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?);";
 	final String USER_LIST = "select * from members;";
 	final String Login = "select password from members where id=?;";
 	final String GET_NICK = "select nickname from members where id=?;";
@@ -24,20 +24,19 @@ public class RegisterDAO {
 	ResultSet rs = null;
 	
 	public void insertMember(RegisterDTO mem) throws SQLException{
-
+		
 		try{
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(USER_INSERT); //3
 			pstmt.setString(1, mem.getId());
 			pstmt.setString(2, mem.getNickname());
 			pstmt.setString(3, mem.getPassword());
-			pstmt.setBoolean(4, false); //isadmin
-			pstmt.setInt(5, 0); //visit
-			pstmt.setString(6, null); //profile_img_url
-			pstmt.setString(7, null); //introduce
+			pstmt.setBoolean(4, false);
+			pstmt.setInt(5, 0);
+			pstmt.setString(6, null);
 			pstmt.executeUpdate();
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println(e);
 		}finally{
 			JDBCutil.close(pstmt, conn);
 		}
@@ -179,7 +178,7 @@ public class RegisterDAO {
 	public String getProfileImg(String memberId) throws SQLException{
 		try{
 			conn = JDBCutil.getConnection();
-			pstmt = conn.prepareStatement(GET_IMG);
+			pstmt = conn.prepareStatement(GET_NICK);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -199,7 +198,7 @@ public class RegisterDAO {
 	public String getIntroduce(String memberId) throws SQLException{
 		try{
 			conn = JDBCutil.getConnection();
-			pstmt = conn.prepareStatement(GET_INTRO);
+			pstmt = conn.prepareStatement(GET_NICK);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -216,7 +215,7 @@ public class RegisterDAO {
 
 	}
 	
-	public void infoChange(String cid, String cpw, String cimg, String cintro,String id) {
+	public void infoChange(String id, String cid, String cpw, String cimg, String cintro) {
 		try{
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(CHANGE_INFO);
@@ -226,7 +225,7 @@ public class RegisterDAO {
 			pstmt.setString(3, cimg);
 			pstmt.setString(4, cintro);
 			pstmt.setString(5, id);
-			pstmt.executeUpdate();
+			
 	
 		}catch(Exception e){
 			System.out.println(e);

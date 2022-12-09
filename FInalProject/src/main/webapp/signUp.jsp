@@ -128,13 +128,6 @@
 	    return false; //기본 동작인 submit의 동작을 막아 페이지 reload를 막는다.
 	});
  
- function preventBlink(e, element){
-	e.preventDefault();
-	element.style.borderColor = "red";
- }
- 
- 
- 
  var textArr = document.querySelectorAll(".text");
  textArr.forEach(ele => {
 	 ele.addEventListener("input",(e)=>{

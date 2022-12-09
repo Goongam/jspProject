@@ -25,7 +25,7 @@
 				}
 				else{
 					%>
-					<a href="myPage.jsp">
+					<a href="getinfo.do">
                     마이페이지
                 </a>
                 <%
