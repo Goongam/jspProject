@@ -55,6 +55,7 @@
                         </div>
 						<div><h1 class="question_title"> <%= question.getQuestion_title() %> </h1></div>
 						<div class="question_content"> <%= question.getQuestion_contnet() %> </div>
+						<div class="report_box"><button class="report_btn" onclick="report('q','<%=question.getQuestion_id()%>')">신고</button></div>
 					</div>
 				</div>
 				<div class="answer_count">답변 <%=answers.size() %>개</div>
@@ -63,7 +64,7 @@
 						for(AnswerDTO answer : answers){
 						
 							%>
-							<div class="answer_inner">
+							<div class="answer_inner" id="aid_<%=answer.getId()%>">
 								<div class="answer_info_warp">
 									<div class="question_member_info">
 										<img class="profile_img" src="imgs/todayQ.png">
@@ -79,6 +80,7 @@
 								</div>
 								<div><h1 class="answer_title"> <%= answer.getTitle() %> </h1></div>
 								<div class="answer_content"> <%= answer.getContent() %> </div>
+								<div class="report_box"><button class="report_btn" onclick="report('a','<%=answer.getId()%>')">신고</button></div>
 							</div>
 							<%
 						}
@@ -116,6 +118,26 @@
 </body>
 <script>
 	const loginCheck = "<%=loginCkeck%>";
+	
+	async function report(type, id){
+		if(loginCheck === "null") {
+			if(confirm("로그인이 필요한 기능입니다. 로그인 페이지로 이동하시겠습니까?"))
+				location.href = "login.jsp";
+			return;
+		}
+		
+		let msg = prompt("신고내용");
+		if(!msg){
+			return;
+		}
+		fetch("Report.do?type="+type+"&id="+id+"&msg="+msg).then(res => res.text())
+		.then(t => {
+			if(t === "success"){
+				alert("신고가 접수되었습니다");
+			} 
+		});
+	}
+
 
 	async function vote(id, memberid, isUp){
 		if(loginCheck === "null") {

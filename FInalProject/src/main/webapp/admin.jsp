@@ -6,6 +6,8 @@
 <%
 ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>) session.getAttribute("vlist");
 ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("plist");
+ArrayList<ReportDTO> reportList = (ArrayList<ReportDTO>)session.getAttribute("reportList");
+HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAttribute("ReportTitleMap");
 %>
 <head>
 <meta charset="UTF-8">
@@ -94,18 +96,24 @@ ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("pl
 			</div>
 			<div class="report_list">
 				<div class="report_text">신고내역</div>
+				<%
+					for(ReportDTO report : reportList){
+				%>
+					<div class="report_article">
+						<div><a href="<%
+							if(report.getType().equals("q")){ //question
+								out.print("Question.do?qustionid="+report.getArticle_id());
+							}else{
+								out.print("Answer.do?answerid="+report.getArticle_id());
+							}
+						%>"><%=report.getTitle()%></a></div>
+						<div><%=report.getMsg() %></div>
+						<div class="delete_report"><a href="ReportDelete.do?id=<%=report.getId()%>">🗑</a></div>
+					</div>
+				<%
+					}
+				%>
 				
-				<div class="report_article">
-					<div><a href="#">글제목</a></div>
-					<div>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</div>
-					<div class="delete_report"><a href="#">🗑</a></div>
-				</div>
-				
-				<div class="report_article">
-					<div><a href="#">글제목</a></div>
-					<div>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</div>
-					<div class="delete_report"><a href="#">🗑</a></div>
-				</div>
 				
 			</div>
 		</div>

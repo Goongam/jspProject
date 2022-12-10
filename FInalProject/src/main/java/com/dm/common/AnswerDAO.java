@@ -193,5 +193,26 @@ public ArrayList<AnswerDTO> selectAnswerInfo(String memberId) throws SQLExceptio
 		
 		return AnswerList;
 	}
+
+
+	public String SELECT_ANSWER_TO_Q = "select question_id from answers where id = ?";
+	public int selectQidByAnswer(String answer_id) throws SQLException{
+		try{
+			conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(SELECT_ANSWER_TO_Q);
+			stmt.setString(1, answer_id);
+			rs = stmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt("question_id");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+		
+		return 0;
+}
 	
 }
