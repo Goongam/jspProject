@@ -13,6 +13,9 @@ public class QuestionDAO {
 	final String QUESTION_SELECT = "select * from questions where id = ?";
 	final String QUESTION_ALL_SELECT = "select * from questions;";
 	final String DELETE_Q = "delete from questions where id = ?";
+	final String GET_QUESTION_COUNT = "select count(*) from questions where member_id=?;";
+	final String TOP_CATEGORY = "select member_id, category, count(*) as count from questions where member_id = ? and category is not null group by category order by count desc limit 3;";
+	final String QUESTION_TITLE = "select title from questions where member_id =?;";
 	
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -344,8 +347,84 @@ public class QuestionDAO {
 		}finally{
 			JDBCutil.close(stmt, conn);
 		}
+	}
+	
+	
+	
+	public int getQuestionCount(String memberId) throws SQLException{
+		int count = 0;
+		
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(GET_QUESTION_COUNT);
+			stmt.setString(1, memberId);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+		return count;
+	}
+	
+	
+	public ArrayList<String> favoriteCategory(String memberId) throws SQLException{
+		ArrayList<String> fav = new ArrayList<String>();
+		
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(TOP_CATEGORY);
+			stmt.setString(1, memberId);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				fav.add(rs.getString("category"));
+				System.out.println(rs.getString("category"));
+							}
+			return fav;
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+		return null;
+	}
 	
 
+	final String QUESTION_INFO = "select * from questions where member_id=?;";
+	public ArrayList<QuestionDTO> selectQuestionInfo(String memberId) throws SQLException{
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(QUESTION_INFO);
+			stmt.setString(1, memberId);
+			rs = stmt.executeQuery();
+			alist = new ArrayList<QuestionDTO>();
+			while(rs.next()) {
+				//id, title, content, member_id, anonymous, category_id, views, edit_time
+				QuestionDTO dto = new QuestionDTO();
+				dto.setQuestion_id(rs.getInt("id"));
+				dto.setQuestion_title(rs.getString("title"));
+				dto.setQuestion_contnet(rs.getString("content"));
+				dto.setMemeber_id(rs.getString("member_id"));
+				dto.setAnonymous(rs.getBoolean("anonymous"));
+				dto.setcategory(rs.getString("category"));
+				dto.setViews(rs.getInt("views"));
+				dto.setEdit_time(rs.getTimestamp("edit_time"));
+				
+				
+				alist.add(dto);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+		
+		return alist;
 	}
 }
 	

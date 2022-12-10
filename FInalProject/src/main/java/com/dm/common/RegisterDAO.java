@@ -15,6 +15,7 @@ public class RegisterDAO {
 	final String GET_NICK = "select nickname from members where id=?;";
 	final String GET_IMG = "select profile_img_url from members where id=?;";
 	final String GET_INTRO = "select introduce from members where id=?;";
+	
 	final String ADMIN_CHECK = "select is_admin from members where id=? and is_admin = 1;";
 	final String DELETE_M = "delete from members where id = ?";
 	final String CHANGE_INFO = "update members set nickname = (?), password = (?), profile_img_url = (?), introduce = (?) where id = (?);";
@@ -235,5 +236,8 @@ public class RegisterDAO {
 		}
 		
 	}
+	
+	
+	
 	
 }
