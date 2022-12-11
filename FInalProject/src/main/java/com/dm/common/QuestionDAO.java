@@ -335,11 +335,11 @@ public class QuestionDAO {
 	}
 
 	
-	public void DeleteQuestion(String report_q) throws SQLException{
+	public void DeleteQuestion(String id) throws SQLException{
 		try{
 			conn = JDBCutil.getConnection();
 			stmt = conn.prepareStatement(DELETE_Q);
-			stmt.setString(1, report_q);
+			stmt.setString(1, id);
 			System.out.println(stmt.executeUpdate());
 			
 		}catch(Exception e){
@@ -426,5 +426,24 @@ public class QuestionDAO {
 		
 		return alist;
 	}
+	
+	
+	
+//	public String DELETE_QUESTIONS = "delete from questions where id = ?;";
+//	public int deleteAnswer(String id) {
+//		try{
+//		 	conn = JDBCutil.getConnection();
+//			stmt = conn.prepareStatement(DELETE_QUESTIONS);
+//			stmt.setString(1, id);
+//			return stmt.executeUpdate();
+//			
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}finally{
+//			JDBCutil.close(stmt, conn);
+//		}
+//		
+//		int 0;
+//	}
 }
 	

@@ -135,7 +135,6 @@ public class AnswerDAO {
 		}finally{
 			JDBCutil.close(rs, stmt, conn);
 		}
-		System.out.println(count);
 		return count;
 	}
 	
@@ -213,6 +212,22 @@ public ArrayList<AnswerDTO> selectAnswerInfo(String memberId) throws SQLExceptio
 		}
 		
 		return 0;
-}
+	}
+	
+	public String DELETE_ANSWER = "delete from answers where id = ?;";
+	public int deleteAnswer(String id) {
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(DELETE_ANSWER);
+			stmt.setString(1, id);
+			return stmt.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(stmt, conn);
+		}
+		return 0;
+	}
 	
 }

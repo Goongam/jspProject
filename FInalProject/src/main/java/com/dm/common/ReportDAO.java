@@ -135,4 +135,38 @@ public class ReportDAO {
 
 	}
 	
+	final String DELETE_ARTICLE = "delete from article_reports where article_id = ? and article_type = ?;";
+	public void deleteArticle(String id, String type) throws SQLException{
+		
+		try{
+			conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(DELETE_ARTICLE);
+			stmt.setString(1, id);
+			stmt.setString(2, type);
+			stmt.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(stmt, conn);
+		}
+
+	}
+	
+	final String DELETE_ANSWER_IN_Q = "delete article_reports from article_reports inner join answers on article_id = answers.id inner join questions on answers.question_id = questions.id where questions.id = ?;";
+	public void deleteAnswerInQ(String qid) throws SQLException{
+		
+		try{
+			conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(DELETE_ANSWER_IN_Q);
+			stmt.setString(1, qid);
+			stmt.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(stmt, conn);
+		}
+
+	}
 }

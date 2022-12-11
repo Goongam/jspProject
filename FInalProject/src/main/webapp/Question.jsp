@@ -55,7 +55,17 @@
                         </div>
 						<div><h1 class="question_title"> <%= question.getQuestion_title() %> </h1></div>
 						<div class="question_content"> <%= question.getQuestion_contnet() %> </div>
-						<div class="report_box"><button class="report_btn" onclick="report('q','<%=question.getQuestion_id()%>')">신고</button></div>
+						<div class="report_box">
+							<%
+								if(loginCkeck != null){
+									if(question.getMemeber_id().equals(memberid) || memberid.equals("admin")){
+										out.println("<button class='delete_article' onclick='delete_question("+question.getQuestion_id()+")'>삭제</button>");
+									}
+								}
+							%>
+							
+							<button class="report_btn" onclick="report('q','<%=question.getQuestion_id()%>')">신고</button>
+						</div>
 					</div>
 				</div>
 				<div class="answer_count">답변 <%=answers.size() %>개</div>
@@ -80,7 +90,16 @@
 								</div>
 								<div><h1 class="answer_title"> <%= answer.getTitle() %> </h1></div>
 								<div class="answer_content"> <%= answer.getContent() %> </div>
-								<div class="report_box"><button class="report_btn" onclick="report('a','<%=answer.getId()%>')">신고</button></div>
+								<div class="report_box">
+									<%
+										if(loginCkeck != null){
+											if(answer.getMember_id().equals(memberid) || memberid.equals("admin")){
+												out.println("<button class='delete_article' onclick='delete_answer("+answer.getId()+")'>삭제</button>");
+											}
+										}
+									%>
+									<button class="report_btn" onclick="report('a','<%=answer.getId()%>')">신고</button>
+								</div>
 							</div>
 							<%
 						}
@@ -118,6 +137,31 @@
 </body>
 <script>
 	const loginCheck = "<%=loginCkeck%>";
+	
+	function delete_answer(aid){
+		if(confirm("삭제하시겠습니까?")){
+			fetch("DeleteAnswer.do?id="+aid).then(res => res.text())
+			.then(result =>{
+				if(result === "success"){
+					alert("삭제되었습니다.");
+					location.reload();
+				}
+			})
+		}
+
+	}
+	function delete_question(qid){
+		if(confirm("삭제하시겠습니까?")){
+			fetch("DeleteQuestion.do?id="+qid).then(res => res.text())
+			.then(result =>{
+				if(result === "success"){
+					alert("삭제되었습니다.");
+					location.href="index.do";
+				}
+			})
+		}
+	
+	}
 	
 	async function report(type, id){
 		if(loginCheck === "null") {
