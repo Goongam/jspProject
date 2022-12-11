@@ -31,7 +31,7 @@ public class MemberDeleteController2 extends HttpServlet {
 
 			pdao.DeleteMember(del_id);
 
-			response.sendRedirect("index.do");
+			response.sendRedirect("login.jsp");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
