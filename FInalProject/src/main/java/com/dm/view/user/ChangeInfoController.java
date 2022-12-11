@@ -30,8 +30,11 @@ public class ChangeInfoController extends HttpServlet {
 		String cpw = request.getParameter("changePw");
 		String cimg = request.getParameter("changeProfileImg");
 		String cintro = request.getParameter("changeIntroduce");
-		System.out.println("img"+cimg);
+		
+
 		rdao.infoChange(cnick,cpw,cimg,cintro,id);
+
+		
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("getinfo.do");

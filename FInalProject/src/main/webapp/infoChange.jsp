@@ -22,7 +22,7 @@
         </div>
         <div>
             <b class="input_label">비밀번호 변경</b><br>
-            <input class="text" type="password" name="changePw" id="user_pass" placeholder="패스워드" value="<% out.println(session.getAttribute("pwValue")); %>"><br><br>
+            <input class="text" type="password" name="changePw" id="user_pass" placeholder="패스워드"><br><br>
         </div>
         <div>
             <b class="input_label">비밀번호 확인</b><br>
@@ -32,7 +32,7 @@
         </div>
 				<div>
 					<b class="input_label">프로필 이미지 변경</b> <br>
-					<input class="text" type="text" name="changeProfileImg" placeholder="이미지 주소" id="img_url_input" style="width: 230px;" hidden><input type="file" value="찾아보기" style="margin-left: 5px;" id="profile_img_input"><br><br>
+					<input class="text" type="text" name="changeProfileImg" placeholder="이미지 주소" id="img_url_input" value="<%=session.getAttribute("profileImg") %>" style="width: 230px;" hidden><input type="file" value="찾아보기" style="margin-left: 5px;" id="profile_img_input"><br><br>
         </div>
         <div>
 					<h3> 자기소개 변경(200자 이내)</h3>
@@ -53,32 +53,32 @@
     </body>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
-let isPassSame = false;
-$(function(){
- $('#user_pass').keyup(function(){
-  $('font[name=check]').text('');
- }); //#user_pass.keyup
-
- $('#chpass').keyup(function(){
-  if($('#user_pass').val()!=$('#chpass').val()){
-   $('font[name=check]').text('');
-   $('font[name=check]').html("암호틀림");
-   isPassSame = false;
-  }else{
-   $('font[name=check]').text('');
-   $('font[name=check]').html("암호맞음");
-   isPassSame = true;
-  }
- }); //#chpass.keyup
-});
+	let isPassSame = false;
+	$(function(){
+	 $('#user_pass').keyup(function(){
+	  $('font[name=check]').text('');
+	 }); //#user_pass.keyup
+	
+	 $('#chpass').keyup(function(){
+	  if($('#user_pass').val()!=$('#chpass').val()){
+	   $('font[name=check]').text('');
+	   $('font[name=check]').html("암호틀림");
+	   isPassSame = false;
+	  }else{
+	   $('font[name=check]').text('');
+	   $('font[name=check]').html("암호맞음");
+	   isPassSame = true;
+	  }
+	 }); //#chpass.keyup
+	});
+	 
  
- 
- 
+	
  $('#changeForm').submit(function() { //submit이 발생하면
 
 	 	
-		if(this.nickname.value == '' ){
-	 		this.nickname.style.borderColor = "red";
+		if(this.changeNickname.value == '' ){
+	 		this.changeNickname.style.borderColor = "red";
 	 		return false;
 	 	}
 		
@@ -91,9 +91,10 @@ $(function(){
 	 		return false;
 	 	}
 		if(!isPassSame){
-	 		this.PWCheck.style.borderColor = "red";
+	 		this.changePwCheck.style.borderColor = "red";
 	 		return false;
 	 	}
+
 		let form= document.querySelector("#changeForm");
     	form.submit();
 		

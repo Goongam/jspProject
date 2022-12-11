@@ -260,6 +260,25 @@ public class RegisterDAO {
 		
 	}
 	
+	final String CHANGE_INFO_WITHOUT_IMG = "update members set nickname = (?), password = (?), introduce = (?) where id = (?);";
+	public void infoChange(String cid, String cpw, String cintro,String id) {
+		try{
+			conn = JDBCutil.getConnection();
+			pstmt = conn.prepareStatement(CHANGE_INFO_WITHOUT_IMG);
+
+			pstmt.setString(1, cid);
+			pstmt.setString(2, cpw);
+			pstmt.setString(3, cintro);
+			pstmt.setString(4, id);
+			pstmt.executeUpdate();
+	
+		}catch(Exception e){
+			System.out.println(e);
+		}finally{
+			JDBCutil.close(pstmt, conn);
+		}
+		
+	}
 	
 	
 	
