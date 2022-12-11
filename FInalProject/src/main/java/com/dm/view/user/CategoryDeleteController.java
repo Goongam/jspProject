@@ -9,29 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dm.common.CategoryDAO;
 import com.dm.common.QuestionDTO;
-import com.dm.common.RegisterDAO;
 
-
-@WebServlet("/delete_m.do")
-public class MemberDeleteController extends HttpServlet {
+@WebServlet("/delete_c.do")
+public class CategoryDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RegisterDAO pdao = new RegisterDAO();
-		String del_id = request.getParameter("delM");
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		CategoryDAO cdao = new CategoryDAO();
+		String del_id = request.getParameter("delC");
 		try {
-			pdao.DeleteMember(del_id);
+			cdao.DeleteCategory(del_id);
 			response.sendRedirect("list.do");
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response, QuestionDTO delQ) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response, QuestionDTO delQ)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

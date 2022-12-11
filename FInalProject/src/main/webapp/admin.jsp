@@ -6,6 +6,7 @@
 <%
 ArrayList<RegisterDTO> mlist = (ArrayList<RegisterDTO>) session.getAttribute("vlist");
 ArrayList<QuestionDTO> plist = (ArrayList<QuestionDTO>) session.getAttribute("plist");
+ArrayList<CategoryDTO> clist = (ArrayList<CategoryDTO>) session.getAttribute("clist");
 ArrayList<ReportDTO> reportList = (ArrayList<ReportDTO>)session.getAttribute("reportList");
 HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAttribute("ReportTitleMap");
 %>
@@ -25,7 +26,7 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 	<div class="container">
 			<input type="submit" value="회원 목록 보기" id="memBtn" style="margin-left: 30px;"> 
 			<input type="submit" value="글 목록 보기" id="queBtn">
-			<input type="submit" value="카테고리 목록 보기" id="addCategory">
+			<input type="submit" value="카테고리 목록 보기" id="catBtn">
 		<div class="admin_content">
 			<div class="table_wrap">
 				<table width="100%" align="center" id="memberList">
@@ -64,7 +65,7 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 						</td>
 					</tr>
 				</table>
-
+				
 				<table width="100%" align="center" id="questionList">
 					<tr>
 						<td align="center" bgcolor="">
@@ -84,7 +85,7 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 									<td align="center"><%=regBean2.getQuestion_title()%></td>
 									<td align="center"><%=regBean2.getMemeber_id()%>
 									<td align="center"><%=regBean2.getcategory()%></td>
-									<td align="center"><a href="delete_q.do?delQ=<%= regBean2.getQuestion_id() %>">삭제하기</a></td>
+									<td align="center"><a href="delete_q.do?delQ=<%=regBean2.getQuestion_id() %>">삭제하기</a></td>
 								</tr>
 								<%
 								}
@@ -93,7 +94,11 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 						</td>
 					</tr>
 				</table>
-				<div id="">
+				<div id="CategoryList">
+				<form  method="post" action="insertc.do" >
+				<input type="text" name="category_n" placeholder="추가할 카테고리명을 입력해 주세요" style="width: 600px; margin-top:10px; margin-left: 30px;"></input>
+				<input type="submit" value="추가하기"></input>
+				</form>
 				<table width="100%" align="center">
 					<tr>
 						<td align="center" bgcolor="">
@@ -102,12 +107,12 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 									<td align="center"><font color="">카테고리 이름</font></td>
 								</tr>
 								<%
-								for (int i = 0; i < plist.size(); i++) {
-									QuestionDTO regBean2 = (QuestionDTO) plist.get(i);
+								for (int i = 0; i < clist.size(); i++) {
+									CategoryDTO regBean3 = (CategoryDTO) clist.get(i);
 								%>
 								<tr>
-									<td align="center"><%=regBean2.getQuestion_id()%></td>
-									<td align="center"><a href="delete_q.do?delQ=<%= regBean2.getQuestion_id() %>">삭제하기</a></td>
+									<td align="center"><%=regBean3.getCategory_name()%></td>
+									<td align="center"><a href="delete_c.do?delC=<%=regBean3.getCategory_name()%>">삭제하기</a></td>
 								</tr>
 								<%
 								}
@@ -150,20 +155,32 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 <script type="text/javascript">
 	const ml = document.querySelector("#memberList");
 	const ql = document.querySelector("#questionList");
+	const cl = document.querySelector("#CategoryList");
 	const mb = document.querySelector("#memBtn");
 	const qb = document.querySelector("#queBtn");
+	const cb = document.querySelector("#catBtn");
 	ql.style.display = "none";
+	cl.style.display = "none";
 	ml.style.display = "block";
 	mb.addEventListener("click", mlon)
 	qb.addEventListener("click", qlon)
+	cb.addEventListener("click", clon)
 
 	function mlon() {
 		ml.style.display = "block";
 		ql.style.display = "none";
+		cl.style.display = "none";
 	}
 
 	function qlon() {
 		ql.style.display = "block";
+		ml.style.display = "none";
+		cl.style.display = "none";
+	}
+	
+	function clon() {
+		cl.style.display = "block"
+		ql.style.display = "none";
 		ml.style.display = "none";
 	}
 </script>

@@ -1,10 +1,8 @@
-
 package com.dm.view.user;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +20,8 @@ public class QuestionDeleteController extends HttpServlet {
 			throws ServletException, IOException {
 		QuestionDAO pdao = new QuestionDAO();
 		String del_id = request.getParameter("delQ");
-		System.out.println(del_id);
 		try {
 			pdao.DeleteQuestion(del_id);
-			
 			response.sendRedirect("list.do");
 
 		} catch (SQLException e) {

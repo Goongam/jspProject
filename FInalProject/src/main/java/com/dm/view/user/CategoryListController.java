@@ -3,7 +3,6 @@ package com.dm.view.user;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,41 +14,17 @@ import javax.servlet.http.HttpSession;
 
 import com.dm.common.CategoryDAO;
 import com.dm.common.CategoryDTO;
-import com.dm.common.QuestionDAO;
-import com.dm.common.QuestionDTO;
-import com.dm.common.RegisterDAO;
-import com.dm.common.RegisterDTO;
-import com.dm.common.ReportDAO;
-import com.dm.common.ReportDTO;
 
-@WebServlet("/list.do")
-public class MemberListController extends HttpServlet {
+@WebServlet("/clist.do")
+public class CategoryListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		RegisterDAO rdao = new RegisterDAO();
-		QuestionDAO pdao = new QuestionDAO();
 		CategoryDAO cdao = new CategoryDAO();
-		ReportDAO repDao = new ReportDAO();
-		
 		try {
-			ArrayList<RegisterDTO> mList = rdao.selectMemberList();
-			session.setAttribute("vlist", mList);
-			ArrayList<QuestionDTO> pList = pdao.selectPostList();
-			session.setAttribute("plist", pList);
 			ArrayList<CategoryDTO> cList = cdao.selectCategoryList();
+			HttpSession session = request.getSession();
 			session.setAttribute("clist", cList);
-			ArrayList<ReportDTO> reportList = repDao.select_report();
-			session.setAttribute("reportList", reportList);
-			
-			HashMap<Integer, String> id_title = new HashMap<Integer, String>(); //id - title
-			for(ReportDTO report : reportList) {
-				report.setTitle(repDao.selectTitleById(report.getArticle_id(), report.getType()));
-			}
-			session.setAttribute("ReportTitleMap", id_title);
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 			dispatcher.forward(request, response);
 			
