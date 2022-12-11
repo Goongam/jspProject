@@ -6,6 +6,9 @@
     pageEncoding="UTF-8"%>
 
 <% String loginCkeck = (String)session.getAttribute("loginCkeck"); %>
+<% Integer todayQ_id = (Integer)session.getAttribute("todayQ_id"); %>
+<% String todayQ_title = (String)session.getAttribute("todayQ_title"); %>
+
 
 <div class="warp_right">
             <div id="question_btn" class="border">
@@ -39,11 +42,17 @@
            
 
             <div class="categorys"></div>
-    
-   	<a href="#" id="today_q_warp">
+    <%if(todayQ_id == 0 || todayQ_id == null){
+    	
+    }else{%>
+    	<a href="Question.do?qustionid=<%=todayQ_id%>" id="today_q_warp">
    		<img src="<%= request.getContextPath() %>/imgs/todayQ.png" id="today_q_img">
    		<span id="today_q_inner_text">오늘의 질문입니다</span>
    	</a>
+    	<%
+    }
+    %>
+   	
 </div>
             
 <script type="text/javascript">

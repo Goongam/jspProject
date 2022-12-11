@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dm.common.CategoryDAO;
-import com.dm.common.CategoryDTO;
 import com.dm.common.QuestionDAO;
 import com.dm.common.QuestionDTO;
 
@@ -45,7 +43,10 @@ public class QuestionListView extends HttpServlet {
 		
 		try {
 			
+			QuestionDTO rq = new QuestionDTO();
 			QuestionDAO dao = new QuestionDAO();
+			
+			
 			qlist = dao.selectQuestionListPaging((current_page-1)*paging.getList_num(), paging.getList_num());
 			paging.setAll_question_count(dao.selectQuestionCount());
 			
@@ -58,6 +59,10 @@ public class QuestionListView extends HttpServlet {
 		 	if (paging.getLast_page() > paging.getTotal_page()) {
 				paging.setLast_page(paging.getTotal_page());
 			}
+		 	
+		 	rq = dao.todayQuestion();
+			session.setAttribute("todayQ_id", rq.getQuestion_id());
+			session.setAttribute("todayQ_title", rq.getQuestion_title());
 		 	
 
 		} catch (SQLException e) {

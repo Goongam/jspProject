@@ -16,11 +16,41 @@ public class QuestionDAO {
 	final String GET_QUESTION_COUNT = "select count(*) from questions where member_id=?;";
 	final String TOP_CATEGORY = "select member_id, category, count(*) as count from questions where member_id = ? and category is not null group by category order by count desc limit 3;";
 	final String QUESTION_TITLE = "select title from questions where member_id =?;";
+	final String QUESTION_MOST_VIEWED = "select * from questions WHERE DATE_FORMAT(edit_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') order by views desc limit 1;";
 	
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	ArrayList<QuestionDTO> alist;
+	
+	
+	public QuestionDTO todayQuestion() throws SQLException{
+		QuestionDTO mv = new QuestionDTO();
+		
+		try{
+		 	conn = JDBCutil.getConnection();
+			stmt = conn.prepareStatement(QUESTION_MOST_VIEWED);
+			rs = stmt.executeQuery();
+			
+			
+			if(rs.next())
+			{
+			mv.setQuestion_id(rs.getInt("id"));
+			mv.setQuestion_title(rs.getString("title"));
+			}
+			
+	
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			JDBCutil.close(rs, stmt, conn);
+		}
+		return mv;
+	}
+	
+	
+	
+	
 	public int insertQuestion(QuestionDTO question) throws SQLException{
 		try{
 		 	conn = JDBCutil.getConnection();
