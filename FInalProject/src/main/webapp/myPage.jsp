@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.Timestamp"%>
 <%@page import="com.dm.common.AnswerDAO"%>
 <%@page import="com.dm.common.StringUtil"%>
 <%@page import="com.dm.view.user.Paging"%>
@@ -12,7 +13,10 @@
 <% ArrayList<String> fav = (ArrayList<String>)session.getAttribute("fav"); %>
 <% ArrayList<QuestionDTO> qInfoList = (ArrayList<QuestionDTO>)session.getAttribute("qInfo"); %>
 <% ArrayList<AnswerDTO> aInfoList = (ArrayList<AnswerDTO>)session.getAttribute("aInfo"); %>
-
+<%
+	Timestamp registerDate = (Timestamp)session.getAttribute("registerDate");
+	TimeDiff timediff = new TimeDiff();
+%>
 
 <html lang="en">
 <head>
@@ -46,7 +50,7 @@
 					<div
 						style="width: 900px; background-color: lightgray; height: 400px; margin: 10 auto; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45); overflow: auto;">
 						<div class="imgDiv">
-							<img alt="프로필 이미지" src="imgs/basic.png">
+							<img alt="프로필 이미지" src="<%=session.getAttribute("profileImg")%>">
 						</div>
 						<div style="background-color: rgb(209,233,255); width: 60%; height: 150px; margin-top: 40px; margin-left: 40px; float: left; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
 						<h3 style="font-weight: bold; margin-top: 10px; ">자기소개</h3><br>
@@ -102,7 +106,7 @@
 						style="width: 900px; background-color: lightgray; height: 200px; margin: 10 auto; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45); overflow: auto;">
 						<div
 							style="background-color: rgb(209,233,255); width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
-							<h2 style="font-weight: bold;">가입한지  일째 입니다.</h2>
+							<h2 style="font-weight: bold;">가입한지 <%=timediff.getDateDiff(registerDate.getTime())%> 일째 입니다.</h2>
 						</div>
 						<div
 							style="background-color: rgb(209,233,255); width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">

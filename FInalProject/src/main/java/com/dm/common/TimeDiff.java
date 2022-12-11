@@ -29,4 +29,21 @@ public class TimeDiff {
 		
 		return e;
 	}
+	
+	public String getDateDiff(Long edit_timeStamp_Time) {
+		
+		
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy.MM.dd");
+		
+		Date currentTime = new Date(); //현재시간
+		long editTime = edit_timeStamp_Time - 3600 * 9 *  1000;//가입일
+		
+		
+		String e = sdformat.format(editTime); //포멧형식
+		
+		
+		long timeDiffDay = (currentTime.getTime() - editTime) / (1000 * 60 * 60 * 24);
+		
+		return timeDiffDay+"";
+	}
 }

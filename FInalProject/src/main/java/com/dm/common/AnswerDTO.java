@@ -12,8 +12,16 @@ public class AnswerDTO {
 	private int question_id;
 	private Timestamp edit_time;
 	private String member_nickname;
+	private String profile_img;
 	
 	
+	
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
 	public int getId() {
 		return id;
 	}

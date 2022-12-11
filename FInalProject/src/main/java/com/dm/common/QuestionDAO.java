@@ -46,7 +46,7 @@ public class QuestionDAO {
 		return -1;
 	}
 	
-	String SELECT_QUESTION = "select questions.id, title, content, member_id, anonymous, category, views, edit_time, nickname from questions,members where questions.member_id = members.id and questions.id = ?;";
+	String SELECT_QUESTION = "select questions.id, title, content, member_id, anonymous, category, views, edit_time, nickname, profile_img_url from questions,members where questions.member_id = members.id and questions.id = ?;";
 	public QuestionDTO selectQuestion(String questionid) throws SQLException{
 		QuestionDTO dto = new QuestionDTO();
 		
@@ -65,6 +65,7 @@ public class QuestionDAO {
 				dto.setViews(rs.getInt("views"));
 				dto.setEdit_time(rs.getTimestamp("edit_time"));
 				dto.setMember_nickname(rs.getString("nickname"));
+				dto.setProfile_img(rs.getString("profile_img_url"));
 			}else { //湲� �뾾�쓬
 				return null;
 			}

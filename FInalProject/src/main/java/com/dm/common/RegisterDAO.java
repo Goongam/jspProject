@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class RegisterDAO {
@@ -15,6 +16,7 @@ public class RegisterDAO {
 	final String GET_NICK = "select nickname from members where id=?;";
 	final String GET_IMG = "select profile_img_url from members where id=?;";
 	final String GET_INTRO = "select introduce from members where id=?;";
+	final String GET_REGISTER_DATE = "select register_date from members where id=?;";
 	
 	final String ADMIN_CHECK = "select is_admin from members where id=? and is_admin = 1;";
 	final String DELETE_M = "delete from members where id = ?";
@@ -34,7 +36,7 @@ public class RegisterDAO {
 			pstmt.setString(3, mem.getPassword());
 			pstmt.setBoolean(4, false); //isadmin
 			pstmt.setInt(5, 0); //visit
-			pstmt.setString(6, null); //profile_img_url
+			pstmt.setString(6, "imgs/basic.png"); //profile_img_url
 			pstmt.setString(7, null); //introduce
 			pstmt.executeUpdate();
 		}catch(Exception e){
@@ -217,6 +219,27 @@ public class RegisterDAO {
 
 	}
 	
+	public Timestamp getRegisterDate(String memberId) throws SQLException{
+		try{
+
+			conn = JDBCutil.getConnection();
+			pstmt = conn.prepareStatement(GET_REGISTER_DATE);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+
+				return rs.getTimestamp("register_date");
+			}
+			
+	
+		}catch(Exception e){
+			System.out.println(e);
+		}finally{
+			JDBCutil.close(rs, pstmt, conn);
+		}
+		return null;
+
+	}
 	public void infoChange(String cid, String cpw, String cimg, String cintro,String id) {
 		try{
 			conn = JDBCutil.getConnection();

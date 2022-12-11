@@ -12,9 +12,22 @@ public class QuestionDTO {
  	private int views;	
  	private Timestamp edit_time;
  	private String member_nickname;
+ 	private String profile_img;
  	
  	
- 	public int getQuestion_id() {
+ 	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
+	public int getQuestion_id() {
 		return question_id;
 	}
 	public void setQuestion_id(int question_id) {

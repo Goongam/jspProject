@@ -32,7 +32,7 @@
         </div>
 				<div>
 					<b class="input_label">프로필 이미지 변경</b> <br>
-					<input class="text" type="text" name="changeProfileImg" placeholder="이미지 주소" style="width: 230px;"><input type="file" value="찾아보기" style="margin-left: 5px;"><br><br>
+					<input class="text" type="text" name="changeProfileImg" placeholder="이미지 주소" id="img_url_input" style="width: 230px;" hidden><input type="file" value="찾아보기" style="margin-left: 5px;" id="profile_img_input"><br><br>
         </div>
         <div>
 					<h3> 자기소개 변경(200자 이내)</h3>
@@ -106,6 +106,26 @@ textArr.forEach(ele => {
 		 e.target.style.borderColor = "";
 	 });
 });
+
+
+
+let img_input = document.querySelector("#profile_img_input");
+let url_text_input = document.querySelector("#img_url_input");
+img_input.onchange = async ()=>{
+	console.log(img_input.files[0]);
+	//UploadSummernoteImageFile
+	const formData = new FormData();
+	formData.append("file", img_input.files[0]);
+	
+	url = await fetch('UploadSummernoteImageFile',{
+        method: 'POST',
+        body: formData,
+    }).then((data)=>data.json())
+    .then((json)=>json.url);
+	
+	url_text_input.value = url;
+	console.log(url);
+}
 </script>
 </html>
 

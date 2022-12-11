@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AnswerDAO {
 
-	final String ANSWER_SELECT = "select answers.id, title, content, member_id, anonymous, vote, question_id, edit_time, nickname from answers,members where answers.member_id = members.id and question_id = ? order by vote desc, edit_time desc;";
+	final String ANSWER_SELECT = "select answers.id, title, content, member_id, anonymous, vote, question_id, edit_time, nickname, profile_img_url from answers,members where answers.member_id = members.id and question_id = ? order by vote desc, edit_time desc;";
 	final String GET_ANSWER_COUNT = "select count(*) from answers where member_id=?;";
 	final String GET_VOTE = "select sum(vote) from answers where member_id=?;";
 	final String ANSWER_TITLE = "select title from answers where member_id =?;";
@@ -39,6 +39,7 @@ public class AnswerDAO {
 				adto.setQuestion_id(rs.getInt("question_id"));
 				adto.setEdit_time(rs.getTimestamp("edit_time"));
 				adto.setMember_nickname(rs.getString("nickname"));
+				adto.setProfile_img(rs.getString("profile_img_url"));
 				AnswerList.add(adto);
 			}
 			
