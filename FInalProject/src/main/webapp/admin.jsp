@@ -23,8 +23,9 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 <body>
 	<jsp:include page="module/header.jsp"></jsp:include>
 	<div class="container">
-			<input type="submit" value="회원 목록 보기" id="memBtn"> 
+			<input type="submit" value="회원 목록 보기" id="memBtn" style="margin-left: 30px;"> 
 			<input type="submit" value="글 목록 보기" id="queBtn">
+			<input type="submit" value="카테고리 목록 보기" id="addCategory">
 		<div class="admin_content">
 			<div class="table_wrap">
 				<table width="100%" align="center" id="memberList">
@@ -92,7 +93,30 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 						</td>
 					</tr>
 				</table>
-				
+				<div id="">
+				<table width="100%" align="center">
+					<tr>
+						<td align="center" bgcolor="">
+							<table width="95%" align="center" bgcolor="lightblue" border="1">
+								<tr bgcolor="">
+									<td align="center"><font color="">카테고리 이름</font></td>
+								</tr>
+								<%
+								for (int i = 0; i < plist.size(); i++) {
+									QuestionDTO regBean2 = (QuestionDTO) plist.get(i);
+								%>
+								<tr>
+									<td align="center"><%=regBean2.getQuestion_id()%></td>
+									<td align="center"><a href="delete_q.do?delQ=<%= regBean2.getQuestion_id() %>">삭제하기</a></td>
+								</tr>
+								<%
+								}
+								%>
+							</table>
+						</td>
+					</tr>
+				</table>
+				</div>
 			</div>
 			<div class="report_list">
 				<div class="report_text">신고내역</div>

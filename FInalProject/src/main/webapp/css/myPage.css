@@ -6,9 +6,9 @@
     height: 150px; 
     margin-top:40px; 
     margin-left: 40px; 
-    background-color:yellow; 
     float: left;
     border-radius: 70%;
+    overflow: visible;
 }
 .imgDiv img {
     position: absolute;

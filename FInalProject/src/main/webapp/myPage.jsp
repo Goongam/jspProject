@@ -48,7 +48,8 @@
 						<div class="imgDiv">
 							<img alt="프로필 이미지" src="imgs/basic.png">
 						</div>
-						<div style="background-color: lightblue; width: 60%; height: 150px; margin-top: 40px; margin-left: 40px; float: left;"><h3 style="font-weight: bold; margin-top: 10px;">자기소개</h3><br>
+						<div style="background-color: rgb(209,233,255); width: 60%; height: 150px; margin-top: 40px; margin-left: 40px; float: left; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
+						<h3 style="font-weight: bold; margin-top: 10px; ">자기소개</h3><br>
 							<% if(session.getAttribute("introduce") != null){
 							out.println(session.getAttribute("introduce")); 
 							}
@@ -61,23 +62,23 @@
 							</div>
 							<a href="infoChange.jsp">
 						<input type="submit" value="정보수정"
-							style="float: right; margin-top: 10px; margin-right: 10px; font-size: 15px; background-color: lightgray; color: white;"></input>
+							style="float: right; margin-top: 10px; margin-right: 10px; font-size: 15px; background-color: rgb(209,233,255); color: white; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45); color: black;"></input>
 							</a>
 						<div class="imgDiv"
-							style="background-color: lightgreen; width: 15%; height: 150px; margin-top: 40px; margin-left: 40px; float: left;">
+							style=" width: 15%; height: 150px; margin-top: 40px; margin-left: 40px; float: left; overflow: visible; ">
 							<%
 							if((Integer)(session.getAttribute("vote")) < 10){
-								%> <img alt="" src="imgs/banner.png"> <%
+								%> <img alt="" src="imgs/badge_1.png" style="width: 100%; height: 100%; overflow: visible;"> <%
 							}else if((Integer)(session.getAttribute("vote")) < 20){
-								%> <img alt="" src="imgs/basic.png"> <%
+								%> <img alt="" src="imgs/badge_2.png" style="width: 100%; height: 100%; overflow: visible;"> <%
 							}else{
-								%> <img alt="" src="imgs/abc.png"> <%
+								%> <img alt="" src="imgs/badge_3.png" style="width: 100%; height: 100%; overflow: visible;"> <%
 							}
 							%>
 							</div>
 						<div
-							style="background-color: lightblue; width: 60%; height: 150px; margin-top: 40px; margin-left: 40px; float: left;">
-							<h3>
+							style="background-color: rgb(209,233,255); width: 60%; height: 150px; margin-top: 40px; margin-left: 40px; float: left; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
+							<h3 style="font-weight: bold;">
 								<%
 								out.println(session.getAttribute("nickName"));
 								%>
@@ -90,7 +91,8 @@
 							님의 관심 카테고리는
 							<%
 							for(int i=0; i< fav.size(); i++  ){
-								%><button type="button" onclick="location.href='Search.do?category=<%=fav.get(i) %>'"><% out.println(fav.get(i));%></button> <% 
+								%><button type="button" onclick="location.href='Search.do?category=<%=fav.get(i) %>'"style="font-weight: bold; background-color: lightblue; border: 0 solid; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);" >
+								<% out.println(fav.get(i));%></button> <% 
 							}
 							%>
 							입니다.
@@ -99,19 +101,19 @@
 					<div
 						style="width: 900px; background-color: lightgray; height: 200px; margin: 10 auto; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45); overflow: auto;">
 						<div
-							style="background-color: lightblue; width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px;">
+							style="background-color: rgb(209,233,255); width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
 							<h2 style="font-weight: bold;">가입한지  일째 입니다.</h2>
 						</div>
 						<div
-							style="background-color: lightblue; width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px;">
+							style="background-color: rgb(209,233,255); width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
 							<h2 style="font-weight: bold;">받은 추천 횟수 : <% out.println(session.getAttribute("vote")); %></h2>
 						</div>
 						<div
-							style="background-color: lightblue; width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px;">
+							style="background-color: rgb(209,233,255); width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
 							<h2 style="font-weight: bold;">작성한 질문 수 : <% out.println(session.getAttribute("questionCount"));%></h2>
 						</div>
 						<div
-							style="background-color: lightblue; width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px;">
+							style="background-color: rgb(209,233,255); width: 40%; height: 70px; float: left; margin-top: 20px; margin-left: 20px; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45);">
 							<h2 style="font-weight: bold;">작성한 답변 수 : <% out.println(session.getAttribute("answerCount"));%></h2>
 						</div>
 						<div class="paging_box">
