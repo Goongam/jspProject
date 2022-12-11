@@ -109,7 +109,7 @@ HashMap<Integer,String> ReportTitleMap = (HashMap<Integer,String>)session.getAtt
 								<%
 								for (int i = 0; i < clist.size(); i++) {
 									CategoryDTO regBean3 = (CategoryDTO) clist.get(i);
-								%>
+									%>
 								<tr>
 									<td align="center"><%=regBean3.getCategory_name()%></td>
 									<td align="center"><a href="delete_c.do?delC=<%=regBean3.getCategory_name()%>">삭제하기</a></td>
