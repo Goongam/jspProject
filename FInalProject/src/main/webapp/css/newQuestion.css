@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
-#title{
-	width:100%;
+#title {
+	width: 100%;
 	margin-bottom: 10px;
 }
 
-.img-uploading{
+.img-uploading {
 	position: absolute;
-	width:100%;
+	width: 100%;
 	height: 200px;
-	top:10%;
+	top: 10%;
 	text-align: center;
 	line-height: 200px; /*글자세로정렬, 높이*/
 	background-color: white;
@@ -18,12 +18,12 @@
 	display: none;
 }
 
-#category_select{
+#category_select {
 	
 }
 
-#submitBTN{
-	background-color: rgba(0,144,249,.5);
+#submitBTN {
+	background-color: rgba(0, 144, 249, .5);
 	color: white;
 	border: 0px;
 	width: 100px;
@@ -31,57 +31,57 @@
 	border-radius: 5px;
 }
 
-.submit_wrap{
+.submit_wrap {
 	text-align: right;
 }
 
-.new_qustion_options{
+.new_qustion_options {
 	display: flex;
 	margin-bottom: 10px;
 }
 
-.anony_selection{
+.anony_selection {
 	margin-left: 10px
 }
 
-#submitBTN:hover{
-	color : #858585;
+#submitBTN:hover {
+	color: #858585;
 }
 
 /*토글 스위치*/
 .toggleSwitch {
-  width: 50px;
-  height: 20px;
-  /*display: block;*/
-  position: relative;
-  border-radius: 30px;
-  border: 1px solid #cccccc;
-  background-color: #fff;
-  cursor: pointer;
-  margin-bottom: 0;
-  margin-left: 5px;
+	width: 50px;
+	height: 20px;
+	/*display: block;*/
+	position: relative;
+	border-radius: 30px;
+	border: 1px solid #cccccc;
+	background-color: #fff;
+	cursor: pointer;
+	margin-bottom: 0;
+	margin-left: 5px;
 }
 
 .toggleSwitch .toggleButton {
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  top: 50%;
-  left: 4px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: rgb(11,127,211);
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	top: 50%;
+	left: 4px;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	background: rgb(11, 127, 211);
 }
 
 #toggle:checked ~ .toggleSwitch {
-  background: rgb(11,127,211);
+	background: rgb(11, 127, 211);
 }
 
 #toggle:checked ~ .toggleSwitch .toggleButton {
-  left: calc(100% - 17px);
-  background: #fff;
+	left: calc(100% - 17px);
+	background: #fff;
 }
 
 .toggleSwitch, .toggleButton {
-  transition: all 0.2s ease-in;
+	transition: all 0.2s ease-in;
 }

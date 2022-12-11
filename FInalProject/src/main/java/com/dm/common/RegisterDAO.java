@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class RegisterDAO {
 
-	
 	final String USER_INSERT = "insert into members values(?,?,?,?,now(),?,?,?);";
 	final String USER_LIST = "select * from members;";
 	final String Login = "select password from members where id=?;";
@@ -17,231 +16,217 @@ public class RegisterDAO {
 	final String GET_IMG = "select profile_img_url from members where id=?;";
 	final String GET_INTRO = "select introduce from members where id=?;";
 	final String GET_REGISTER_DATE = "select register_date from members where id=?;";
-	
+
 	final String ADMIN_CHECK = "select is_admin from members where id=? and is_admin = 1;";
 	final String DELETE_M = "delete from members where id = ?";
 	final String CHANGE_INFO = "update members set nickname = (?), password = (?), profile_img_url = (?), introduce = (?) where id = (?);";
-	
+
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	
-	public void insertMember(RegisterDTO mem) throws SQLException{
 
-		try{
+	public void insertMember(RegisterDTO mem) throws SQLException {
+
+		try {
 			conn = JDBCutil.getConnection();
-			pstmt = conn.prepareStatement(USER_INSERT); //3
+			pstmt = conn.prepareStatement(USER_INSERT); // 3
 			pstmt.setString(1, mem.getId());
 			pstmt.setString(2, mem.getNickname());
 			pstmt.setString(3, mem.getPassword());
-			pstmt.setBoolean(4, false); //isadmin
-			pstmt.setInt(5, 0); //visit
-			pstmt.setString(6, "imgs/basic.png"); //profile_img_url
-			pstmt.setString(7, null); //introduce
+			pstmt.setBoolean(4, false); // isadmin
+			pstmt.setInt(5, 0); // visit
+			pstmt.setString(6, "imgs/basic.png"); // profile_img_url
+			pstmt.setString(7, null); // introduce
 			pstmt.executeUpdate();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			JDBCutil.close(pstmt, conn);
 		}
 
 	}
-	
-	public ArrayList<RegisterDTO> selectMemberList() throws SQLException{
+
+	public ArrayList<RegisterDTO> selectMemberList() throws SQLException {
 		ArrayList<RegisterDTO> aList = new ArrayList<RegisterDTO>();
-		try{
+		try {
 			conn = JDBCutil.getConnection();
-			pstmt = conn.prepareStatement(USER_LIST); //3
+			pstmt = conn.prepareStatement(USER_LIST); // 3
 			rs = pstmt.executeQuery();
-			
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				RegisterDTO rd = new RegisterDTO();
 				rd.setId(rs.getString("id"));
 				rd.setPassword(rs.getString("password"));
 				rd.setNickname(rs.getString("nickname"));
 				aList.add(rd);
-				
-				
 
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
-			JDBCutil.close(rs,pstmt, conn);
+		} finally {
+			JDBCutil.close(rs, pstmt, conn);
 		}
 		return aList;
 	}
-	
-	
-	public int login(String id, String pw) throws SQLException{
+
+	public int login(String id, String pw) throws SQLException {
 		try {
 			conn = JDBCutil.getConnection();
-		    pstmt = conn.prepareStatement(Login);
-		    pstmt.setString(1, id);
-		    rs = pstmt.executeQuery();
-		    if(rs.next()) {
-			    if(rs.getString("password").equals(pw)) {
-			    	return 1;
-			    }
-			    else {
-			    	return 0;
-			    }
-		    }
-		}catch(Exception e){
-		    e.printStackTrace();
-		}
-		finally {
-			
-			JDBCutil.close(rs,pstmt, conn);	
+			pstmt = conn.prepareStatement(Login);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if (rs.getString("password").equals(pw)) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			JDBCutil.close(rs, pstmt, conn);
 		}
 		return -1;
 	}
-	
-	
+
 	final String SELECT_ID_CHECK = "select * from members where id = ?;";
-	public int CheckId(String id) throws SQLException{
+
+	public int CheckId(String id) throws SQLException {
 		try {
 			conn = JDBCutil.getConnection();
-		    pstmt = conn.prepareStatement(SELECT_ID_CHECK);
-		    pstmt.setString(1, id);
-		    rs = pstmt.executeQuery();
-		    
-		    if(rs.next()) {
-			    return 1;
-		    }
-		    
-		    return 0;
-		}catch(Exception e){
-		    e.printStackTrace();
-		}
-		finally {
-			
-			JDBCutil.close(rs,pstmt, conn);	
+			pstmt = conn.prepareStatement(SELECT_ID_CHECK);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return 1;
+			}
+
+			return 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			JDBCutil.close(rs, pstmt, conn);
 		}
 		return -1;
 	}
-	
-	public String isAdmin(String memberId) throws SQLException{
-		try{
+
+	public String isAdmin(String memberId) throws SQLException {
+		try {
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(ADMIN_CHECK);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return "admin";
-			}
-			else
+			} else
 				return null;
-		}catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(rs, pstmt, conn);
 		}
 		return null;
 	}
-		
-	
-	public void DeleteMember(String memberId) throws SQLException{
-		try{
+
+	public void DeleteMember(String memberId) throws SQLException {
+		try {
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(DELETE_M);
 			pstmt.setString(1, memberId);
 			System.out.println(pstmt.executeUpdate());
-			
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(pstmt, conn);
 		}
-	
 
 	}
-	
-	
-	public String getNickname(String memberId) throws SQLException{
-		try{
+
+	public String getNickname(String memberId) throws SQLException {
+		try {
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(GET_NICK);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getString("nickname");
 			}
-			
-	
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(rs, pstmt, conn);
 		}
 		return null;
 
 	}
-	
-	public String getProfileImg(String memberId) throws SQLException{
-		try{
+
+	public String getProfileImg(String memberId) throws SQLException {
+		try {
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(GET_IMG);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getString("profile_img_url");
 			}
-			
-	
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(rs, pstmt, conn);
 		}
 		return null;
 
 	}
-	
-	public String getIntroduce(String memberId) throws SQLException{
-		try{
+
+	public String getIntroduce(String memberId) throws SQLException {
+		try {
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(GET_INTRO);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getString("introduce");
 			}
-			
-	
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(rs, pstmt, conn);
 		}
 		return null;
 
 	}
-	
-	public Timestamp getRegisterDate(String memberId) throws SQLException{
-		try{
+
+	public Timestamp getRegisterDate(String memberId) throws SQLException {
+		try {
 
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(GET_REGISTER_DATE);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 
 				return rs.getTimestamp("register_date");
 			}
-			
-	
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(rs, pstmt, conn);
 		}
 		return null;
 
 	}
-	public void infoChange(String cid, String cpw, String cimg, String cintro,String id) {
-		try{
+
+	public void infoChange(String cid, String cpw, String cimg, String cintro, String id) {
+		try {
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(CHANGE_INFO);
 
@@ -251,18 +236,19 @@ public class RegisterDAO {
 			pstmt.setString(4, cintro);
 			pstmt.setString(5, id);
 			pstmt.executeUpdate();
-	
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(pstmt, conn);
 		}
-		
+
 	}
-	
+
 	final String CHANGE_INFO_WITHOUT_IMG = "update members set nickname = (?), password = (?), introduce = (?) where id = (?);";
-	public void infoChange(String cid, String cpw, String cintro,String id) {
-		try{
+
+	public void infoChange(String cid, String cpw, String cintro, String id) {
+		try {
 			conn = JDBCutil.getConnection();
 			pstmt = conn.prepareStatement(CHANGE_INFO_WITHOUT_IMG);
 
@@ -271,15 +257,13 @@ public class RegisterDAO {
 			pstmt.setString(3, cintro);
 			pstmt.setString(4, id);
 			pstmt.executeUpdate();
-	
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e);
-		}finally{
+		} finally {
 			JDBCutil.close(pstmt, conn);
 		}
-		
+
 	}
-	
-	
-	
+
 }

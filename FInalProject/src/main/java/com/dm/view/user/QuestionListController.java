@@ -18,8 +18,9 @@ import com.dm.common.QuestionDTO;
 @WebServlet("/plist.do")
 public class QuestionListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		QuestionDAO pdao = new QuestionDAO();
 		try {
 			ArrayList<QuestionDTO> aList = pdao.selectPostList();
@@ -27,15 +28,15 @@ public class QuestionListController extends HttpServlet {
 			session.setAttribute("plist", aList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 			dispatcher.forward(request, response);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

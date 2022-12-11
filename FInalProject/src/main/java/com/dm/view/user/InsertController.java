@@ -13,23 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 import com.dm.common.RegisterDAO;
 import com.dm.common.RegisterDTO;
 
-
 @WebServlet("/insert1.do")
 public class InsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public InsertController() {
-        super();
-        
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public InsertController() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String i = request.getParameter("id");
 		String n = request.getParameter("nickname");

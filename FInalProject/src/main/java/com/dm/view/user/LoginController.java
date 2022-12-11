@@ -17,55 +17,51 @@ import com.dm.common.RegisterDAO;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-       
-    public LoginController() {
-        super();
-    }
+	public LoginController() {
+		super();
+	}
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RegisterDAO rdao = new RegisterDAO();
 		String id = request.getParameter("id");
 		String pw = request.getParameter("password");
 		String ch = request.getParameter("infosave");
-	
-		
+
 		try {
 			int loginrs = rdao.login(id, pw);
 			HttpSession session = request.getSession();
 			session.setAttribute("loginrs", loginrs);
-			
-			if(loginrs == 1) {
-				session.setAttribute("loginCkeck","ok");
-				session.setAttribute("idValue",id);
-				session.setAttribute("pwValue",pw);
+
+			if (loginrs == 1) {
+				session.setAttribute("loginCkeck", "ok");
+				session.setAttribute("idValue", id);
+				session.setAttribute("pwValue", pw);
 				session.setAttribute("isadmin", rdao.isAdmin(id));
-				if(ch != null) 
-					session.setAttribute("Checked","Checked");
-				else 
+				if (ch != null)
+					session.setAttribute("Checked", "Checked");
+				else
 					session.removeAttribute("Checked");
-				
+
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.do");
 				dispatcher.forward(request, response);
-				}
-			else if(loginrs == 0){
-				
+			} else if (loginrs == 0) {
+
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp?loginfail=1");
 				dispatcher.forward(request, response);
-			}
-			else if(loginrs == -1){
+			} else if (loginrs == -1) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp?loginfail=1");
 				dispatcher.forward(request, response);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
 
 }

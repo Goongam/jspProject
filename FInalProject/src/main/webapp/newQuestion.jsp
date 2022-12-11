@@ -2,33 +2,39 @@
 <%@page import="com.dm.common.CategoryDAO"%>
 <%@page import="com.dm.common.CategoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>새 질문 작성</title>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="./css/module.css"> 
-<link rel="stylesheet" type="text/css" href="./css/newQuestion.css"> 
+<link rel="stylesheet" type="text/css" href="./css/module.css">
+<link rel="stylesheet" type="text/css" href="./css/newQuestion.css">
 
 <%
+//CategoryDAO cateDAO = new CategoryDAO();
+//ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
+ArrayList<CategoryDTO> catelist = (ArrayList) session.getAttribute("catelist");
+String loginCkeck = (String) session.getAttribute("loginCkeck");
+if (loginCkeck == null)
+	response.sendRedirect("login.jsp"); //로그아웃시 로그인페이지 이동
 
-	//CategoryDAO cateDAO = new CategoryDAO();
-	//ArrayList<CategoryDTO> catelist = cateDAO.selectQuestion();
-	ArrayList<CategoryDTO> catelist = (ArrayList)session.getAttribute("catelist");
-	String loginCkeck = (String)session.getAttribute("loginCkeck");
-	if(loginCkeck == null) response.sendRedirect("login.jsp"); //로그아웃시 로그인페이지 이동
-	
-	String memberid =(String) session.getAttribute("idValue");
+String memberid = (String) session.getAttribute("idValue");
 %>
 
 </head>
@@ -38,45 +44,43 @@
 	<div class="container">
 		<div class="section">
 			<div class="content">
-			
+
 				<div class="new_question_box">
 					<form method="post" action="InsertQuestion.do" id="newQuestionForm">
 						<input type="text" id="title" name="titledata">
 						<div class="new_qustion_options">
 							<select name="select_category" id="category_select">
-						    <option value="">카테고리 선택</option>
-						    <%
-						    	for(CategoryDTO category : catelist){
-						    		out.print("<option value='"+category.getCategory_name()+"'>"+category.getCategory_name()+"</option>");
-						    	}
-						    %>
-							</select>
-							
-							<input type="checkbox" id="toggle" name="anonymous" hidden> 
+								<option value="">카테고리 선택</option>
+								<%
+								for (CategoryDTO category : catelist) {
+									out.print("<option value='" + category.getCategory_name() + "'>" + category.getCategory_name() + "</option>");
+								}
+								%>
+							</select> <input type="checkbox" id="toggle" name="anonymous" hidden>
 							<div class="anony_selection">익명 질문:</div>
-							<label for="toggle" class="toggleSwitch">
-							  <span class="toggleButton"></span>
+							<label for="toggle" class="toggleSwitch"> <span
+								class="toggleButton"></span>
 							</label>
 						</div>
-						
-	  					<textarea id="summernote" name="editordata"></textarea>
-	  					<div class="submit_wrap"><input type="submit" id="submitBTN" value="작성"></div>
-	  					<input type="hidden" name="memberId" value="<%= memberid %>">
+
+						<textarea id="summernote" name="editordata"></textarea>
+						<div class="submit_wrap">
+							<input type="submit" id="submitBTN" value="작성">
+						</div>
+						<input type="hidden" name="memberId" value="<%=memberid%>">
 					</form>
 				</div>
 			</div>
 			<jsp:include page="module/rightwarp.jsp"></jsp:include>
-			
+
 		</div>
-	
+
 	</div>
-	
-	
+
+
 	<jsp:include page="module/footer.jsp"></jsp:include>
 
-<div class="img-uploading">
-		이미지 업로드 중...
-	</div>
+	<div class="img-uploading">이미지 업로드 중...</div>
 </body>
 
 </html>

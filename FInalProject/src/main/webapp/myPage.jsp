@@ -68,7 +68,7 @@
 						<input type="submit" value="정보수정"
 							style="float: right; margin-top: 10px; margin-right: 10px; font-size: 15px; background-color: rgb(209,233,255); color: white; border-radius: 0.5rem; box-shadow: 0.05rem 0.1rem 0rem -0.03rem rgba(0, 0, 0, 0.45); color: black;"></input>	
 							</a>
-
+							
 						<div class="imgDiv"
 							style=" width: 15%; height: 150px; margin-top: 40px; margin-left: 40px; float: left; overflow: visible; ">
 							<%

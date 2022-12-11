@@ -13,30 +13,29 @@ import javax.servlet.http.HttpSession;
 public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-       
-    public LogoutController() {
-        super();
-    }
+	public LogoutController() {
+		super();
+	}
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("loginCkeck");
-		String infoSaveCheck = (String)session.getAttribute("Checked");
-		
-		if(infoSaveCheck == null) { //로그아웃시 체크 해제상태라면 id,pw 세션삭제
+		String infoSaveCheck = (String) session.getAttribute("Checked");
+
+		if (infoSaveCheck == null) { // 로그아웃시 체크 해제상태라면 id,pw 세션삭제
 			session.removeAttribute("idValue");
 			session.removeAttribute("pwValue");
-			
+
 		}
-		
+
 		session.removeAttribute("isadmin");
 		response.sendRedirect("login.jsp");
 
-		
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
-}
+	}
 }

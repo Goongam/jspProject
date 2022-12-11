@@ -18,28 +18,24 @@ import com.dm.common.ReportDAO;
 @WebServlet("/Report.do")
 public class ReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String type = request.getParameter("type");
 		String id = request.getParameter("id");
 		String msg = request.getParameter("msg");
-		
-		
-		
+
 		ReportDAO rdao = new ReportDAO();
 		try {
 			rdao.insertReport(id, msg, type);
-			
-			
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
-		
-		
-		
-		//response.setContentType("application/json");
+
+		// response.setContentType("application/json");
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter out = response.getWriter();
 		out.print("success");
@@ -47,9 +43,11 @@ public class ReportController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -41,15 +41,15 @@ Integer todayQ_id = (Integer) session.getAttribute("todayQ_id");
 	<div class="categorys"></div>
 	<%
 	if (todayQ_id != null) {
-		if(todayQ_id != 0){
-			%>
-			<a href="Question.do?qustionid=<%=todayQ_id%>" id="today_q_warp"> <img
-				src="<%=request.getContextPath()%>/imgs/todayQ.png" id="today_q_img">
-				<span id="today_q_inner_text">오늘의 질문입니다</span>
-			</a>
-			<%
-		}
-		
+		if (todayQ_id != 0) {
+	%>
+	<a href="Question.do?qustionid=<%=todayQ_id%>" id="today_q_warp"> <img
+		src="<%=request.getContextPath()%>/imgs/todayQ.png" id="today_q_img">
+		<span id="today_q_inner_text">오늘의 질문입니다</span>
+	</a>
+	<%
+	}
+
 	}
 	%>
 

@@ -25,15 +25,15 @@ import com.dm.common.ReportDTO;
 @WebServlet("/list.do")
 public class MemberListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		RegisterDAO rdao = new RegisterDAO();
 		QuestionDAO pdao = new QuestionDAO();
 		CategoryDAO cdao = new CategoryDAO();
 		ReportDAO repDao = new ReportDAO();
-		
+
 		try {
 			ArrayList<RegisterDTO> mList = rdao.selectMemberList();
 			session.setAttribute("vlist", mList);
@@ -43,24 +43,24 @@ public class MemberListController extends HttpServlet {
 			session.setAttribute("clist", cList);
 			ArrayList<ReportDTO> reportList = repDao.select_report();
 			session.setAttribute("reportList", reportList);
-			
-			HashMap<Integer, String> id_title = new HashMap<Integer, String>(); //id - title
-			for(ReportDTO report : reportList) {
+
+			HashMap<Integer, String> id_title = new HashMap<Integer, String>(); // id - title
+			for (ReportDTO report : reportList) {
 				report.setTitle(repDao.selectTitleById(report.getArticle_id(), report.getType()));
 			}
 			session.setAttribute("ReportTitleMap", id_title);
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
 			dispatcher.forward(request, response);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

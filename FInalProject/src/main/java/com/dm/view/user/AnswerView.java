@@ -11,30 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dm.common.AnswerDAO;
 
-
 @WebServlet("/Answer.do")
 public class AnswerView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String aid = request.getParameter("answerid");
-		
+
 		AnswerDAO adao = new AnswerDAO();
 		try {
 			int qid = adao.selectQidByAnswer(aid);
-			
-			response.sendRedirect("Question.do?qustionid="+qid+"#aid_"+aid);
-			
+
+			response.sendRedirect("Question.do?qustionid=" + qid + "#aid_" + aid);
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

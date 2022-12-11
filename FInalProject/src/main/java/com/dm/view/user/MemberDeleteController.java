@@ -12,27 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 import com.dm.common.QuestionDTO;
 import com.dm.common.RegisterDAO;
 
-
 @WebServlet("/delete_m.do")
 public class MemberDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RegisterDAO pdao = new RegisterDAO();
 		String del_id = request.getParameter("delM");
 		try {
 			pdao.DeleteMember(del_id);
 			response.sendRedirect("list.do");
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response, QuestionDTO delQ) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response, QuestionDTO delQ)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

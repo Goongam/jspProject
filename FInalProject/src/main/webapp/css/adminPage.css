@@ -1,41 +1,36 @@
 table {
-
-table-layout: fixed;
-margin: 0;
-
-} 
-
-table thead tr {
-
-width: 50%;
-
+	table-layout: fixed;
+	margin: 0;
 }
 
-.admin_content{
+table thead tr {
+	width: 50%;
+}
+
+.admin_content {
 	display: flex;
 }
 
-.table_wrap{
+.table_wrap {
 	width: 80%;
 }
 
-
-.report_list{
+.report_list {
 	width: 30%;
 }
 
-.report_text{
+.report_text {
 	border-bottom: 1px soild black;
 	margin-bottom: 15px;
 	font-weight: bold;
 }
 
-.report_article{
+.report_article {
 	border-bottom: 1px solid #c0c0c0;
 	margin-bottom: 5px;
 }
 
-.delete_report{
+.delete_report {
 	text-align: right;
 	font-size: 20px;
 }

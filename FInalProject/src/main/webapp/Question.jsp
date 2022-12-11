@@ -2,7 +2,7 @@
 <%@page import="java.sql.Timestamp"%>
 <%@page import="java.util.*, com.dm.common.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,138 +11,173 @@
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/module.css"> 
-<link rel="stylesheet" type="text/css" href="css/Question.css"> 
-<link rel="stylesheet" type="text/css" href="css/newQuestion.css"> 
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/module.css">
+<link rel="stylesheet" type="text/css" href="css/Question.css">
+<link rel="stylesheet" type="text/css" href="css/newQuestion.css">
 
 </head>
 
 <%
+QuestionDTO question = (QuestionDTO) session.getAttribute("questionData");
+ArrayList<AnswerDTO> answers = (ArrayList<AnswerDTO>) session.getAttribute("answerData");
+HashMap answerVoteTable = (HashMap) session.getAttribute("answerVoteTable");
 
-	QuestionDTO question = (QuestionDTO)session.getAttribute("questionData");
-	ArrayList<AnswerDTO> answers = (ArrayList<AnswerDTO>)session.getAttribute("answerData");
-	HashMap answerVoteTable =(HashMap) session.getAttribute("answerVoteTable");
-	
-	
-	String memberid = (String)session.getAttribute("idValue");
-	String loginCkeck = (String)session.getAttribute("loginCkeck");
-	TimeDiff timediff = new TimeDiff();
-
+String memberid = (String) session.getAttribute("idValue");
+String loginCkeck = (String) session.getAttribute("loginCkeck");
+TimeDiff timediff = new TimeDiff();
 %>
 
 <body>
 
 	<jsp:include page="module/header.jsp"></jsp:include>
-	
+
 	<div class="container">
 		<div class="section">
 			<div class="content">
 				<div class="question">
 					<div class="question_inner">
 						<div class="question_member_info">
-							<img class="profile_img" src="<%
-							if(question.getAnonymous())
-								out.print("imgs/basic.png");
-							else
-								out.print(question.getProfile_img());
-							%>">
-							<span><% if(question.getAnonymous()) out.print("익명");
-									 else out.print(question.getMember_nickname());%></span>
-							<span><%= timediff.getTimeDiff(question.getEdit_time().getTime()) %></span>
-							<span>👁️ <%= question.getViews() %></span>
-                        </div>
-						<div><h1 class="question_title"> <%= question.getQuestion_title() %> </h1></div>
-						<div class="question_content"> <%= question.getQuestion_contnet() %> </div>
+							<img class="profile_img"
+								src="<%if (question.getAnonymous())
+	out.print("imgs/basic.png");
+else
+	out.print(question.getProfile_img());%>">
+							<span>
+								<%
+								if (question.getAnonymous())
+									out.print("익명");
+								else
+									out.print(question.getMember_nickname());
+								%>
+							</span> <span><%=timediff.getTimeDiff(question.getEdit_time().getTime())%></span>
+							<span>👁️ <%=question.getViews()%></span>
+						</div>
+						<div>
+							<h1 class="question_title">
+								<%=question.getQuestion_title()%>
+							</h1>
+						</div>
+						<div class="question_content">
+							<%=question.getQuestion_contnet()%>
+						</div>
 						<div class="report_box">
 							<%
-								if(loginCkeck != null){
-									if(question.getMemeber_id().equals(memberid) || memberid.equals("admin")){
-										out.println("<button class='delete_article' onclick='delete_question("+question.getQuestion_id()+")'>삭제</button>");
-									}
+							if (loginCkeck != null) {
+								if (question.getMemeber_id().equals(memberid) || memberid.equals("admin")) {
+									out.println("<button class='delete_article' onclick='delete_question(" + question.getQuestion_id()
+									+ ")'>삭제</button>");
 								}
+							}
 							%>
-							
-							<button class="report_btn" onclick="report('q','<%=question.getQuestion_id()%>')">신고</button>
+
+							<button class="report_btn"
+								onclick="report('q','<%=question.getQuestion_id()%>')">신고</button>
 						</div>
 					</div>
 				</div>
-				<div class="answer_count">답변 <%=answers.size() %>개</div>
+				<div class="answer_count">
+					답변
+					<%=answers.size()%>개
+				</div>
 				<div class="answer">
 					<%
-						for(AnswerDTO answer : answers){
-						
-							%>
-							<div class="answer_inner" id="aid_<%=answer.getId()%>">
-								<div class="answer_info_warp">
-									<div class="question_member_info">
-										<img class="profile_img" src="<%
-											if(answer.isAnonymous())
-												out.print("imgs/basic.png");
-											else
-												out.print(answer.getProfile_img());
-											%>">
-										<span><% if(answer.isAnonymous()) out.print("익명");
-												 else out.print(answer.getMember_nickname());%></span>
-										<span><%= timediff.getTimeDiff(answer.getEdit_time().getTime()) %></span>
-			                        </div>
-			                        <div class="answer_vote">
-			                        	<button onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'UP')" class="vote_btn vote_btn_left">&#128077;</button>
-			                        	<span class="vote_count vote_<%=answer.getId()%>"><%=answerVoteTable.get(answer.getId()) %></span>
-			                        	<button onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'DOWN')" class="vote_btn vote_btn_right">&#128078;</button>
-			                        </div>
-								</div>
-								<div><h1 class="answer_title"> <%= answer.getTitle() %> </h1></div>
-								<div class="answer_content"> <%= answer.getContent() %> </div>
-								<div class="report_box">
+					for (AnswerDTO answer : answers) {
+					%>
+					<div class="answer_inner" id="aid_<%=answer.getId()%>">
+						<div class="answer_info_warp">
+							<div class="question_member_info">
+								<img class="profile_img"
+									src="<%if (answer.isAnonymous())
+	out.print("imgs/basic.png");
+else
+	out.print(answer.getProfile_img());%>">
+								<span>
 									<%
-										if(loginCkeck != null){
-											if(answer.getMember_id().equals(memberid) || memberid.equals("admin")){
-												out.println("<button class='delete_article' onclick='delete_answer("+answer.getId()+")'>삭제</button>");
-											}
-										}
+									if (answer.isAnonymous())
+										out.print("익명");
+									else
+										out.print(answer.getMember_nickname());
 									%>
-									<button class="report_btn" onclick="report('a','<%=answer.getId()%>')">신고</button>
-								</div>
+								</span> <span><%=timediff.getTimeDiff(answer.getEdit_time().getTime())%></span>
 							</div>
+							<div class="answer_vote">
+								<button
+									onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'UP')"
+									class="vote_btn vote_btn_left">&#128077;</button>
+								<span class="vote_count vote_<%=answer.getId()%>"><%=answerVoteTable.get(answer.getId())%></span>
+								<button
+									onclick="vote(<%=answer.getId()%>, '<%=memberid%>', 'DOWN')"
+									class="vote_btn vote_btn_right">&#128078;</button>
+							</div>
+						</div>
+						<div>
+							<h1 class="answer_title">
+								<%=answer.getTitle()%>
+							</h1>
+						</div>
+						<div class="answer_content">
+							<%=answer.getContent()%>
+						</div>
+						<div class="report_box">
 							<%
-						}
+							if (loginCkeck != null) {
+								if (answer.getMember_id().equals(memberid) || memberid.equals("admin")) {
+									out.println("<button class='delete_article' onclick='delete_answer(" + answer.getId() + ")'>삭제</button>");
+								}
+							}
+							%>
+							<button class="report_btn"
+								onclick="report('a','<%=answer.getId()%>')">신고</button>
+						</div>
+					</div>
+					<%
+					}
 					%>
 				</div>
-				
+
 				<div class="new_answer_text">답변 작성</div>
 				<div class="new_answer_box">
 					<form method="post" action="InsertAnswer.do" id="newAnswerForm">
 						<input type="text" id="title" name="titledata">
-						
+
 						<div class="new_qustion_options">
-							<input type="checkbox" id="toggle" name="anonymous" hidden> 
+							<input type="checkbox" id="toggle" name="anonymous" hidden>
 							<div class="anony_selection">익명 답변:</div>
-							<label for="toggle" class="toggleSwitch">
-							  <span class="toggleButton"></span>
+							<label for="toggle" class="toggleSwitch"> <span
+								class="toggleButton"></span>
 							</label>
 						</div>
-						
-	  					<textarea id="summernote" name="editordata"></textarea>
-	  					<div class="submit_wrap"><input type="submit" id="submitBTN" value="작성"></div>
-	  					<input name="QuestionId" value="<%=question.getQuestion_id() %>" type="hidden"></input>
-	  					<input type="hidden" name="memberId" value="<%= memberid %>">
+
+						<textarea id="summernote" name="editordata"></textarea>
+						<div class="submit_wrap">
+							<input type="submit" id="submitBTN" value="작성">
+						</div>
+						<input name="QuestionId" value="<%=question.getQuestion_id()%>"
+							type="hidden"></input> <input type="hidden" name="memberId"
+							value="<%=memberid%>">
 					</form>
 				</div>
 			</div>
 			<jsp:include page="module/rightwarp.jsp"></jsp:include>
-			
+
 		</div>
-	
+
 	</div>
-	
-	
+
+
 	<jsp:include page="module/footer.jsp"></jsp:include>
 </body>
 <script>
