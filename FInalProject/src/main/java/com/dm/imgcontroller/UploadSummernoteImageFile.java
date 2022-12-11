@@ -65,7 +65,9 @@ public class UploadSummernoteImageFile extends HttpServlet {
 		
 		
 		JSONObject json = new JSONObject();
-		json.put("url", request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImgs/"+savedFileName);
+		//json.put("url", request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/uploadImgs/"+savedFileName);
+		json.put("url", "uploadImgs/"+savedFileName);
+		
 		json.put("responseCode", "succcess");
 
 //
