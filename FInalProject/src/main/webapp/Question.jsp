@@ -47,7 +47,12 @@
 				<div class="question">
 					<div class="question_inner">
 						<div class="question_member_info">
-							<img class="profile_img" src="<%=question.getProfile_img()%>">
+							<img class="profile_img" src="<%
+							if(question.getAnonymous())
+								out.print("imgs/basic.png");
+							else
+								out.print(question.getProfile_img());
+							%>">
 							<span><% if(question.getAnonymous()) out.print("익명");
 									 else out.print(question.getMember_nickname());%></span>
 							<span><%= timediff.getTimeDiff(question.getEdit_time().getTime()) %></span>
@@ -77,7 +82,12 @@
 							<div class="answer_inner" id="aid_<%=answer.getId()%>">
 								<div class="answer_info_warp">
 									<div class="question_member_info">
-										<img class="profile_img" src="<%= answer.getProfile_img() %>">
+										<img class="profile_img" src="<%
+											if(answer.isAnonymous())
+												out.print("imgs/basic.png");
+											else
+												out.print(answer.getProfile_img());
+											%>">
 										<span><% if(answer.isAnonymous()) out.print("익명");
 												 else out.print(answer.getMember_nickname());%></span>
 										<span><%= timediff.getTimeDiff(answer.getEdit_time().getTime()) %></span>

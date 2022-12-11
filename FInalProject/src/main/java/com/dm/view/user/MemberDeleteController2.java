@@ -24,14 +24,12 @@ public class MemberDeleteController2 extends HttpServlet {
 		String del_id = request.getParameter("delM");
 		
 		try {
-			session.removeAttribute("loginCheck");
+			session.removeAttribute("loginCkeck");
 			session.removeAttribute("idValue");
 			session.removeAttribute("pwValue");
 			session.removeAttribute("Checked");
 			
 			pdao.DeleteMember(del_id);
-			
-			System.out.println(session.getAttribute("loginCheck"));
 			
 			response.sendRedirect("index.do");
 			
