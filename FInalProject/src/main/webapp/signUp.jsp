@@ -37,15 +37,7 @@
 						
 						<br><br>
         </div>
-        <div>
-					<h3> 관심있는 언어</h3>
-						<label>Java<input type="checkbox" /></label>
-						<label>JavaScript<input type="checkbox" /></label>
-						<label>Python<input type="checkbox" /></label><br>
-						<label>C<input type="checkbox" /></label>
-						<label>C#<input type="checkbox" /></label>
-						<label>기타<input type="checkbox" /></label><br>			
-        </div>
+
         <div>
 						<br>
             <input type="submit" class="sign_up" value="회원 가입" style="margin-bottom: 20px; color: white;"></input>		
