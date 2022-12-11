@@ -55,13 +55,12 @@ TimeDiff timediff = new TimeDiff();
 	out.print("imgs/basic.png");
 else
 	out.print(question.getProfile_img());%>">
-							<span>
-								<%
-								if (question.getAnonymous())
-									out.print("익명");
-								else
-									out.print(question.getMember_nickname());
-								%>
+							<span> <%
+ if (question.getAnonymous())
+ 	out.print("익명");
+ else
+ 	out.print(question.getMember_nickname());
+ %>
 							</span> <span><%=timediff.getTimeDiff(question.getEdit_time().getTime())%></span>
 							<span>👁️ <%=question.getViews()%></span>
 						</div>
@@ -104,13 +103,12 @@ else
 	out.print("imgs/basic.png");
 else
 	out.print(answer.getProfile_img());%>">
-								<span>
-									<%
-									if (answer.isAnonymous())
-										out.print("익명");
-									else
-										out.print(answer.getMember_nickname());
-									%>
+								<span> <%
+ if (answer.isAnonymous())
+ 	out.print("익명");
+ else
+ 	out.print(answer.getMember_nickname());
+ %>
 								</span> <span><%=timediff.getTimeDiff(answer.getEdit_time().getTime())%></span>
 							</div>
 							<div class="answer_vote">
