@@ -32,6 +32,7 @@ public class LogoutController extends HttpServlet {
 		
 		session.removeAttribute("isadmin");
 		response.sendRedirect("login.jsp");
+
 		
 	}
 	

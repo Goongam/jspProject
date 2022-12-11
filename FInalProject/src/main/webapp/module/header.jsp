@@ -14,13 +14,16 @@
         <button href="#search" id="search_btn" class="top_cell">검색</button>
         
        <%
-       	
+       
         if(logincheck != null) {
+        	System.out.println((logincheck.equals("null")) + "널아님");
         	%>
         	<a href="logout.do" id="login" class="top_cell">로그아웃</a>
         	 <%
         }
         else{
+        	System.out.println(session.getAttribute("loginCheck") + "널값");
+           	
         	%><a href="<%= request.getContextPath()%>/login.jsp" id="login" class="top_cell">로그인</a><%
         }
         %>

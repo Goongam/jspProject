@@ -8,21 +8,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dm.common.QuestionDTO;
 import com.dm.common.RegisterDAO;
 
 
-@WebServlet("/delete_m.do")
-public class MemberDeleteController extends HttpServlet {
+@WebServlet("/delete_m2.do")
+public class MemberDeleteController2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RegisterDAO pdao = new RegisterDAO();
+		HttpSession session = request.getSession();
 		String del_id = request.getParameter("delM");
+		
 		try {
+			session.removeAttribute("loginCheck");
+			session.removeAttribute("idValue");
+			session.removeAttribute("pwValue");
+			session.removeAttribute("Checked");
+			
 			pdao.DeleteMember(del_id);
-			response.sendRedirect("list.do");
+			
+			System.out.println(session.getAttribute("loginCheck"));
+			
+			response.sendRedirect("index.do");
 			
 			
 		} catch (SQLException e) {
