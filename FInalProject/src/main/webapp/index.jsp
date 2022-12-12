@@ -8,8 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,8 +62,6 @@ int total_page = page_data.getTotal_page();
 							value="<%=q.getEdit_time().getTime()%>" />
 						<jsp:param name="views" value="<%=q.getViews()%>" />
 					</jsp:include>
-
-
 					<%
 					}
 					%>

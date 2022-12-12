@@ -5,7 +5,7 @@ a {
 }
 
 .qlist_top {
-	background-color: var(- -qlist-top-background-color);
+	background-color: var(--qlist-top-background-color);
 	color: black;
 	/* border-bottom: 1px solid black; */
 	font-size: 35px;
