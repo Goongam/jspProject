@@ -43,14 +43,7 @@
 			</div>
 			<div>
 				<h3>자기소개 변경(200자 이내)</h3>
-				<textarea rows="5" cols="40" name="changeIntroduce">
-					<%
-					if (session.getAttribute("introduce") != null) {
-						out.println(session.getAttribute("introduce"));
-					} else {
-						out.println("");
-					}
-					%>
+				<textarea rows="5" cols="40" name="changeIntroduce"><%if (session.getAttribute("introduce") != null) {out.println(session.getAttribute("introduce"));} else { out.println("");}%>
 				</textarea>
 
 			</div>
