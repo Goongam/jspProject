@@ -29,7 +29,7 @@ public class InsertController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("utf-8");
 		String i = request.getParameter("id");
 		String n = request.getParameter("nickname");
 		String p = request.getParameter("password");

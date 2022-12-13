@@ -25,6 +25,7 @@ public class ChangeInfoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		RegisterDAO rdao = new RegisterDAO();
+		request.setCharacterEncoding("utf-8");
 		String id = (String)session.getAttribute("idValue");
 		String cnick = request.getParameter("changeNickname");
 		String cpw = request.getParameter("changePw");
